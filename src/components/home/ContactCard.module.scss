@@ -1,0 +1,78 @@
+@use "../breakpoints.scss" as breakpoints;
+
+// The neon glow from the original site's contact card
+.card {
+  box-shadow:
+    0 0 8px #00ffcc,
+    0 0 16px #00ffff,
+    0 0 24px #39ff14,
+    0 0 32px #00ddff;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow:
+      0 0 12px #9400d3,
+      0 0 24px #00ffcc,
+      0 0 36px #39ff14,
+      0 0 48px #00ffff;
+  }
+}
+
+.photoWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 280px;
+  height: 280px;
+
+  @media (max-width: breakpoints.$s) {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.float {
+  position: absolute;
+  height: auto;
+  animation: float 3s ease-in-out var(--delay, 0s) infinite;
+}
+
+.topRight {
+  top: -8px;
+  right: -8px;
+  width: 72px;
+}
+
+.bottomRight {
+  bottom: 16px;
+  right: -16px;
+  width: 64px;
+}
+
+.bottomLeft {
+  bottom: 16px;
+  left: -16px;
+  width: 96px;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float {
+    animation: none;
+  }
+}
