@@ -13,8 +13,8 @@ import {
 } from "@/types";
 import { home, person, social } from "./content";
 
-// TODO: replace with the real domain once deployed (used for SEO, canonical URLs and schema)
-const baseURL: string = "https://zohairsyed.vercel.app";
+// Production domain (used for SEO, canonical URLs and schema). Update if a custom domain is added.
+const baseURL: string = "https://zohair-portfolio-eta.vercel.app";
 
 const routes: RoutesConfig = {
   "/": true,
