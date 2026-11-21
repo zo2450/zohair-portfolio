@@ -25,9 +25,22 @@ import {
   PiImageDuotone,
 } from "react-icons/pi";
 
-import { SiJavascript, SiNextdotjs, SiFigma, SiSupabase } from "react-icons/si";
+import { SiJavascript, SiNextdotjs, SiFigma, SiSupabase, SiAmd } from "react-icons/si";
 
-import { LuBot, LuMountain, LuGamepad2 } from "react-icons/lu";
+import {
+  LuBot,
+  LuMountain,
+  LuGamepad2,
+  LuClapperboard,
+  LuGraduationCap,
+  LuPresentation,
+  LuHammer,
+  LuTrophy,
+  LuAward,
+  LuCompass,
+  LuZap,
+  LuUsers,
+} from "react-icons/lu";
 
 import {
   FaDiscord,
@@ -81,6 +94,16 @@ export const iconLibrary = {
   copy: HiOutlineClipboardDocument,
   check: HiCheck,
   robot: LuBot,
+  amd: SiAmd,
+  film: LuClapperboard,
+  graduation: LuGraduationCap,
+  teach: LuPresentation,
+  build: LuHammer,
+  trophy: LuTrophy,
+  award: LuAward,
+  compass: LuCompass,
+  zap: LuZap,
+  users: LuUsers,
   mountain: LuMountain,
   gamepad: LuGamepad2,
 } satisfies Record<string, IconType>;

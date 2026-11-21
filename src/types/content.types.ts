@@ -165,8 +165,20 @@ export interface About extends BasePageConfig {
       role: string;
       /** Company logo path (shown beside the entry) */
       logo?: string;
+      /** Brand icon / wordmark + tile colour, used when there is no logo image */
+      logoIcon?: IconName;
+      logoText?: string;
+      logoColor?: string;
       /** Slug of a related case study in /work */
       caseStudy?: string;
+      /** Headline result shown big beside the role, e.g. { value: "87%", label: "less prep time" } */
+      highlight?: { value: string; label: string };
+      /** Tools / skills used in this role */
+      tags?: string[];
+      /** Shows a pulsing "Current" badge */
+      current?: boolean;
+      /** Show the bullet points by default (others start collapsed) */
+      expanded?: boolean;
       /** Achievements at the company */
       achievements: React.ReactNode[];
       /** Images related to the experience */
@@ -201,6 +213,8 @@ export interface About extends BasePageConfig {
     institutions: Array<{
       /** Institution name */
       name: string;
+      /** Logo path */
+      logo?: string;
       /** Description of studies */
       description: React.ReactNode;
     }>;
@@ -235,6 +249,30 @@ export interface About extends BasePageConfig {
       }>;
     }>;
   };
+}
+
+/**
+ * Extra About page sections (character sheet, now, principles, loadout, achievements, side quests).
+ */
+export interface AboutExtras {
+  /** Short stats shown in the header card */
+  characterSheet: Array<{ label: string; value: string }>;
+  /** "Now" strip; `updated` is shown as "Updated <date>" */
+  now: { updated: string; items: Array<{ label: string; value: string; icon: IconName }> };
+  /** "How I work" principles */
+  principles: Array<{ title: string; description: string; icon: IconName }>;
+  /** Tools, grouped */
+  loadout: Array<{ title: string; tools: string[] }>;
+  /** Awards and certificates; `image` opens in a dialog when clicked */
+  achievements: Array<{
+    title: string;
+    issuer: string;
+    detail: string;
+    icon: IconName;
+    image?: string;
+  }>;
+  /** Hobbies and life outside work */
+  sideQuests: Array<{ title: string; description: string; icon: IconName }>;
 }
 
 /**

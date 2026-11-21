@@ -41,7 +41,7 @@ export default function Home() {
       </div>
       <Column fillWidth gap="l" marginTop="l">
         <Heading as="h2" variant="display-strong-s" paddingX="l">
-          Selected work
+          Selected projects
         </Heading>
         <WorkBento />
       </Column>

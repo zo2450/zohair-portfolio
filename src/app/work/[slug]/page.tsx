@@ -203,7 +203,7 @@ export default async function Project({
       <Column fillWidth gap="40" horizontal="center" marginTop="40">
         <Line maxWidth="40" />
         <Heading as="h2" variant="heading-strong-xl" marginBottom="24">
-          More case studies
+          More projects
         </Heading>
         <WorkBento exclude={[post.slug]} />
       </Column>

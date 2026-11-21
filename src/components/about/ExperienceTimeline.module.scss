@@ -88,3 +88,95 @@ $line-x: 21px; // centre of the dots / line
   margin: 0;
   padding-left: var(--static-space-20);
 }
+
+.current {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  background: rgba(16, 185, 129, 0.12);
+  color: #6ee7b7;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+// Headline result: big number + short label
+.highlightValue {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #ede9fe, #c4b5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.highlightLabel {
+  padding-bottom: 2px;
+}
+
+// Collapsible bullets: animates height via grid rows (0fr <-> 1fr)
+.details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+
+  &[data-open="true"] {
+    grid-template-rows: 1fr;
+  }
+}
+
+.detailsInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.details[data-open="false"] .detailsInner {
+  visibility: hidden;
+  transition: visibility 0s 0.35s;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--neutral-alpha-medium);
+  background: var(--neutral-alpha-weak);
+  color: var(--neutral-on-background-strong);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    border-color: rgba(167, 139, 250, 0.6);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 2px;
+  }
+}
+
+.chevron {
+  display: inline-block;
+  transition: transform 0.25s ease;
+
+  &[data-open="true"] {
+    transform: rotate(180deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .details,
+  .chevron {
+    transition: none;
+  }
+}

@@ -1,0 +1,209 @@
+@use "../breakpoints.scss" as breakpoints;
+
+// Solid panels so the background ribbons never run behind readable text
+.panel {
+  position: relative;
+  border-radius: var(--radius-l);
+  border: 1px solid var(--neutral-alpha-weak);
+  background: #0c0b12;
+  padding: var(--static-space-20);
+}
+
+.section {
+  width: 100%;
+  margin-bottom: var(--static-space-64);
+}
+
+.eyebrow {
+  color: #c4b5fd;
+  letter-spacing: 0.02em;
+}
+
+// ---- Header ----
+.header {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: var(--static-space-32);
+  padding: var(--static-space-32);
+
+  @media (max-width: breakpoints.$s) {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+    padding: var(--static-space-24);
+  }
+}
+
+.headerPhoto {
+  width: 200px;
+  height: 200px;
+  border-radius: 28px;
+  object-fit: cover;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.3);
+
+  @media (max-width: breakpoints.$s) {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--static-space-8);
+  margin: 0;
+
+  @media (max-width: breakpoints.$m) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.stat {
+  border-radius: var(--radius-m);
+  border: 1px solid var(--neutral-alpha-weak);
+  background: var(--neutral-alpha-weak);
+  padding: var(--static-space-8) var(--static-space-12);
+  text-align: left;
+
+  dt {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--neutral-on-background-weak);
+  }
+
+  dd {
+    margin: 2px 0 0;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}
+
+.intro {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--neutral-alpha-weak);
+  padding-top: var(--static-space-24);
+  text-align: left;
+}
+
+// ---- Card grids ----
+// auto-fit so 2 items (e.g. "Right now" without the placeholder) still fill the row
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--static-space-12);
+
+  @media (max-width: breakpoints.$s) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--static-space-12);
+
+  @media (max-width: breakpoints.$s) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--static-space-12);
+
+  @media (max-width: breakpoints.$m) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.iconTile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-m);
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  color: #c4b5fd;
+  flex-shrink: 0;
+}
+
+// Placeholder text ([...]) stays visibly unfinished in the preview
+.placeholder {
+  color: #fbbf24;
+  font-style: italic;
+}
+
+// ---- Achievements ----
+.badge {
+  display: flex;
+  align-items: center;
+  gap: var(--static-space-12);
+  width: 100%;
+  padding: var(--static-space-16);
+  border-radius: var(--radius-l);
+  border: 1px solid var(--neutral-alpha-weak);
+  background: #0c0b12;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    border-color: rgba(167, 139, 250, 0.6);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: default;
+    transform: none;
+  }
+}
+
+.gold {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.45);
+  color: #fbbf24;
+}
+
+.dialog {
+  width: min(720px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--neutral-alpha-medium);
+  background: #0c0b12;
+  color: var(--neutral-on-background-strong);
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-l);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}

@@ -1,6 +1,5 @@
-import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
+import { About, AboutExtras, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
 import { Column, Line, Row, Text } from "@once-ui-system/core";
-import { TypingPill } from "@/components/TypingPill";
 import { StatusDot } from "@/components/StatusDot";
 import { FlipWords } from "@/components/FlipWords";
 
@@ -135,7 +134,6 @@ const about: About = {
     title: "Introduction",
     description: (
       <Column gap="m">
-        <TypingPill />
         <Text>
           I'm a Computer Science student at Wilfrid Laurier University and a product manager who
           likes to build. At AMD and Microsoft I've owned AI tools end to end, from figuring out
@@ -157,7 +155,13 @@ const about: About = {
         company: "AMD",
         timeframe: "May 2026 – Present",
         role: "Software Product Management Intern",
+        logoIcon: "amd",
+        logoColor: "#000000",
         caseStudy: "amd-aippt-ai-agents",
+        highlight: { value: "4", label: "AI agents built, plus AIPPT owned end to end" },
+        tags: ["Python", "Microsoft Graph API", "LLM agents"],
+        current: true,
+        expanded: true,
         achievements: [
           <>
             Took ownership of AIPPT, a Python-based Markdown/JS-to-PowerPoint platform, adding
@@ -181,6 +185,9 @@ const about: About = {
         role: "Product Management Intern",
         logo: "/images/logos/microsoft.png",
         caseStudy: "microsoft-prospecting-agent",
+        highlight: { value: "$30M+", label: "pipeline from agent workshops" },
+        tags: ["Copilot Studio", "Power Automate", "Power BI"],
+        expanded: true,
         achievements: [
           <>
             Led the design and launch of the Prospecting Automation Agent, cutting seller and
@@ -198,7 +205,11 @@ const about: About = {
         company: "IBM",
         timeframe: "Sep 2025 – Dec 2025",
         role: "Pro Bono Consultant",
+        logoText: "IBM",
+        logoColor: "#0f62fe",
         caseStudy: "ibm-pro-bono-ai-agent",
+        highlight: { value: "1st place", label: "AI strategy plan" },
+        tags: ["Copilot", "Usability testing", "AI strategy"],
         achievements: [
           <>
             Ran usability testing and built a Copilot-powered AI agent that answers emails, drafts
@@ -212,9 +223,29 @@ const about: About = {
         images: [],
       },
       {
+        company: "Platuni",
+        timeframe: "Jul 2025 – Aug 2025",
+        role: "Product Management Intern",
+        logoText: "P",
+        logoColor: "#1f5aa6",
+        // TODO(Zohair): replace the placeholder with what you did and the result; add a highlight + tags
+        // Placeholder shows in dev previews only
+        achievements:
+          process.env.NODE_ENV === "production"
+            ? []
+            : [
+                <span key="platuni" style={{ color: "#fbbf24", fontStyle: "italic" }}>
+                  [What you worked on at Platuni, and the result]
+                </span>,
+              ],
+        images: [],
+      },
+      {
         company: "Picnic Game Labs",
         timeframe: "Mar 2025 – May 2025",
         role: "Project Management Intern",
+        highlight: { value: "+18%", label: "early engagement in beta" },
+        tags: ["Jira", "Sprint planning", "Content strategy"],
         logo: "/images/logos/picnic.png",
         achievements: [
           <>
@@ -232,6 +263,8 @@ const about: About = {
         company: "thinkrr.ai",
         timeframe: "May 2024 – Nov 2024",
         role: "Web Developer & Marketing Associate",
+        highlight: { value: "+15%", label: "organic traffic" },
+        tags: ["Framer", "React", "SEO", "Google Analytics"],
         logo: "/images/logos/thinkrr.png",
         achievements: [
           <>
@@ -250,6 +283,9 @@ const about: About = {
         role: "Co-Founder",
         logo: "/images/logos/gamecraftcamp.png",
         caseStudy: "gamecraft-camp",
+        highlight: { value: "1,500+", label: "kids taught C++ game dev" },
+        tags: ["C++", "Partnerships", "Fundraising"],
+        current: true,
         achievements: [
           <>
             Co-founded and led a hands-on C++ game development program that has taught 1,500+
@@ -276,7 +312,7 @@ const about: About = {
       },
       {
         company: "Knorket.AI",
-        role: "Marketing Consultant Intern",
+        role: "Growth Intern",
         timeframe: "Jan 2024 – Mar 2024",
         logo: "/images/logos/knorket.png",
         achievements: [
@@ -367,6 +403,7 @@ const about: About = {
     institutions: [
       {
         name: "Wilfrid Laurier University",
+        logo: "/images/logos/laurier.png",
         description: <>Honours Bachelor of Computer Science · Sep 2023 – Aug 2027</>,
       },
     ],
@@ -467,9 +504,9 @@ const blog: Blog = {
 
 const work: Work = {
   path: "/work",
-  label: "Work",
-  title: `Case studies – ${person.name}`,
-  description: `Product and AI agent case studies by ${person.name}`,
+  label: "Projects",
+  title: `Projects – ${person.name}`,
+  description: `Product and AI agent projects by ${person.name}`,
   // Each .mdx file in src/app/work/projects becomes a case study page
 };
 
@@ -481,4 +518,114 @@ const gallery: Gallery = {
   images: [],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+// About page extras. [Square brackets] mark placeholders for Zohair to fill in.
+const aboutExtras: AboutExtras = {
+  characterSheet: [
+    { label: "Class", value: "AI Product Manager" },
+    { label: "Base", value: "Toronto, ON" },
+    { label: "Languages", value: "English · Urdu" },
+    { label: "Guild", value: "Laurier CS '27" },
+  ],
+  now: {
+    updated: "Nov 2026",
+    items: [
+      { label: "Building", value: "AI agents and AIPPT at AMD", icon: "build" },
+      { label: "Studying", value: "Computer Science at Wilfrid Laurier", icon: "graduation" },
+      { label: "Playing", value: "[What you're playing right now]", icon: "gamepad" },
+    ],
+  },
+  // Draft principles, each backed by something on the resume. Edit freely.
+  principles: [
+    {
+      title: "Start with the people using it",
+      description:
+        "Before building the IBM inbox agent, I ran usability tests with the charity's staff to see how they actually worked.",
+      icon: "users",
+    },
+    {
+      title: "Automate the boring parts",
+      description:
+        "If a workflow eats days, it should be an agent. At Microsoft that turned 15 days of seller prep into 2.",
+      icon: "zap",
+    },
+    {
+      title: "Ship, then measure",
+      description:
+        "AIPPT's AI features went to early users fast. The 1+ hour saved per deck is how I know they worked.",
+      icon: "compass",
+    },
+    {
+      title: "Teach it back",
+      description:
+        "Running GameCraft Camp taught me to explain complex ideas simply, to 1,500+ kids and counting.",
+      icon: "teach",
+    },
+  ],
+  loadout: [
+    { title: "Code", tools: ["Python", "Java", "C/C++", "SQL", "JavaScript", "React"] },
+    {
+      title: "AI & automation",
+      tools: ["Copilot Studio", "Power Automate", "Power BI", "Microsoft Graph API"],
+    },
+    { title: "Product & design", tools: ["Figma", "Jira", "Usability testing"] },
+  ],
+  achievements: [
+    {
+      title: "First place, AI strategy",
+      issuer: "IBM pro bono",
+      detail: "Our AI implementation plan for a charity won first place.",
+      icon: "trophy",
+    },
+    {
+      title: "Future Leaders Challenge",
+      issuer: "BDO",
+      detail: "Semi-finalist",
+      icon: "trophy",
+      image: "/images/certs/bdo.png",
+    },
+    {
+      title: "Enterprise Design Thinking",
+      issuer: "IBM",
+      detail: "Badge",
+      icon: "award",
+      image: "/images/certs/ibm-design-thinking.png",
+    },
+    {
+      title: "Crash Course on Python",
+      issuer: "Google",
+      detail: "Certificate",
+      icon: "award",
+      image: "/images/certs/google-python.png",
+    },
+    {
+      title: "Fundamentals of Digital Marketing",
+      issuer: "Google",
+      detail: "Certificate",
+      icon: "award",
+      image: "/images/certs/google-marketing.png",
+    },
+    {
+      title: "Audit & Assurance Job Simulation",
+      issuer: "KPMG",
+      detail: "Certificate",
+      icon: "award",
+      image: "/images/certs/kpmg.png",
+    },
+  ],
+  sideQuests: [
+    {
+      title: "Rock climbing",
+      description: "[Where you climb, or a route you're proud of]",
+      icon: "mountain",
+    },
+    { title: "Gaming", description: "[Your all-time favourite game]", icon: "gamepad" },
+    { title: "Movies", description: "[A film you'd recommend to anyone]", icon: "film" },
+    {
+      title: "Teaching",
+      description: "Co-founded GameCraft Camp, where 1,500+ kids have learned to code games.",
+      icon: "teach",
+    },
+  ],
+};
+
+export { person, social, newsletter, home, about, aboutExtras, blog, work, gallery };
