@@ -1,15 +1,15 @@
 @use "../breakpoints.scss" as breakpoints;
 
 $line-x: 21px; // centre of the dots / line
+$accent: #c4b5fd;
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
 .timeline {
   --progress: 0;
   position: relative;
   width: 100%;
-  margin-bottom: var(--static-space-40);
 }
 
-// Faint full-height line, with the gradient beam growing inside it
 .track {
   position: absolute;
   top: 8px;
@@ -21,14 +21,13 @@ $line-x: 21px; // centre of the dots / line
   overflow: hidden;
 }
 
+// Scroll progress line (no glow halo)
 .beam {
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(to bottom, transparent 0%, #a78bfa 8%, #e879f9 60%, #2dd4bf 100%);
+  background: linear-gradient(to bottom, #a78bfa, #e879f9 60%, #2dd4bf);
   transform-origin: top;
   transform: scaleY(var(--progress));
-  box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
 }
 
 .list {
@@ -52,7 +51,6 @@ $line-x: 21px; // centre of the dots / line
   }
 }
 
-// Sticks while the role's details scroll past
 .header {
   position: sticky;
   top: 96px;
@@ -67,6 +65,26 @@ $line-x: 21px; // centre of the dots / line
   }
 }
 
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.company {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 96px;
+}
+
+.timeframe {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--neutral-on-background-weak);
+}
+
 .dot {
   position: absolute;
   left: -52px + $line-x - 7px;
@@ -75,18 +93,8 @@ $line-x: 21px; // centre of the dots / line
   height: 14px;
   margin-top: -7px;
   border-radius: 50%;
-  background: var(--page-background);
+  background: #0c0b12;
   border: 2px solid #a78bfa;
-  box-shadow: 0 0 10px rgba(167, 139, 250, 0.7);
-}
-
-.content {
-  min-width: 0;
-}
-
-.achievements {
-  margin: 0;
-  padding-left: var(--static-space-20);
 }
 
 .current {
@@ -104,27 +112,55 @@ $line-x: 21px; // centre of the dots / line
   font-weight: 600;
 }
 
-// Headline result: big number + short label
-.highlightValue {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  background: linear-gradient(90deg, #ede9fe, #c4b5fd);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-12);
 }
 
-.highlightLabel {
-  padding-bottom: 2px;
+.role {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $accent;
+}
+
+// The role's result as a sentence (matches the Projects page headlines)
+.headline {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  color: var(--neutral-on-background-strong);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--static-space-8);
+}
+
+.achievements {
+  margin: 0;
+  padding-left: var(--static-space-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-12);
+  max-width: 68ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--neutral-on-background-medium);
 }
 
 // Collapsible bullets: animates height via grid rows (0fr <-> 1fr)
 .details {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
+  transition: grid-template-rows 0.35s $ease-out;
 
   &[data-open="true"] {
     grid-template-rows: 1fr;
@@ -141,17 +177,26 @@ $line-x: 21px; // centre of the dots / line
   transition: visibility 0s 0.35s;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--static-space-8) var(--static-space-20);
+}
+
+// 44px tall tap target
 .toggle {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  min-height: 44px;
+  padding: 0 14px;
   border-radius: 999px;
   border: 1px solid var(--neutral-alpha-medium);
-  background: var(--neutral-alpha-weak);
+  background: transparent;
   color: var(--neutral-on-background-strong);
   font: inherit;
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
 
@@ -160,18 +205,25 @@ $line-x: 21px; // centre of the dots / line
   }
 
   &:focus-visible {
-    outline: 2px solid #a78bfa;
+    outline: 2px solid $accent;
     outline-offset: 2px;
   }
 }
 
 .chevron {
-  display: inline-block;
-  transition: transform 0.25s ease;
+  transition: transform 0.25s $ease-out;
 
   &[data-open="true"] {
     transform: rotate(180deg);
   }
+}
+
+.caseLink {
+  display: inline-flex !important;
+  align-items: center;
+  min-height: 44px;
+  margin: 0 !important;
+  width: fit-content;
 }
 
 @media (prefers-reduced-motion: reduce) {

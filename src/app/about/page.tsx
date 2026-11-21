@@ -1,19 +1,12 @@
 import React from "react";
 import { Column, Meta, Schema } from "@once-ui-system/core";
 import { baseURL, about, aboutExtras, person, work } from "@/resources";
+import { AboutHeader, Principles } from "@/components/about/AboutSections";
 import { ExperienceTimeline } from "@/components/about/ExperienceTimeline";
-import { RolesCarousel } from "@/components/about/RolesCarousel";
-import { AchievementBadges } from "@/components/about/AchievementBadges";
-import {
-  AboutHeader,
-  Education,
-  Loadout,
-  NowStrip,
-  Principles,
-  SectionHeading,
-  SideQuests,
-} from "@/components/about/AboutSections";
+import { EarlierRoles } from "@/components/about/EarlierRoles";
+import { Wins } from "@/components/about/Wins";
 import { ContactCard } from "@/components/home/ContactCard";
+import styles from "@/components/about/AboutSections.module.scss";
 
 export async function generateMetadata() {
   const metadata = Meta.generate({
@@ -27,11 +20,17 @@ export async function generateMetadata() {
   return { ...metadata, alternates: { canonical: metadata.openGraph.url } };
 }
 
+const isProduction = process.env.NODE_ENV === "production";
+
 /**
- * About page order: header (character sheet + story) → now → how I work → experience
- * → loadout → achievements → education → side quests → contact.
+ * About page order: header (who, now, facts, story) → how I work → experience (timeline,
+ * other tools, earlier roles) → wins → contact. Every section sits on a solid surface.
  */
 export default function About() {
+  const experiences = about.work.experiences.filter(
+    (experience) => !(isProduction && experience.hiddenInProduction),
+  );
+
   return (
     <Column maxWidth="l" paddingX="l" s={{ paddingX: "0" }}>
       <Schema
@@ -49,14 +48,15 @@ export default function About() {
       />
 
       <AboutHeader />
-      <NowStrip />
       <Principles />
 
       {about.work.display && (
-        <section style={{ width: "100%", marginBottom: "var(--static-space-64)" }}>
-          <SectionHeading eyebrow="Main quest" title={about.work.title} id="experience" />
+        <section className={styles.sheet} aria-labelledby="experience">
+          <h2 id="experience" className={styles.sectionTitle}>
+            {about.work.title}
+          </h2>
           <ExperienceTimeline
-            items={about.work.experiences.map((experience) => ({
+            items={experiences.map((experience) => ({
               company: experience.company,
               role: experience.role,
               timeframe: experience.timeframe,
@@ -64,7 +64,7 @@ export default function About() {
               logoIcon: experience.logoIcon,
               logoText: experience.logoText,
               logoColor: experience.logoColor,
-              highlight: experience.highlight,
+              headline: experience.headline,
               tags: experience.tags,
               current: experience.current,
               expanded: experience.expanded,
@@ -78,28 +78,20 @@ export default function About() {
               )),
             }))}
           />
+          {aboutExtras.otherTools.length > 0 && (
+            <p className={styles.otherTools}>
+              <strong>Also work with: </strong>
+              {aboutExtras.otherTools.join(", ")}
+            </p>
+          )}
           {about.work.earlier && about.work.earlier.length > 0 && (
-            <Column fillWidth gap="16">
-              <Column gap="4">
-                <h3 style={{ margin: 0, fontSize: "var(--font-size-heading-xl, 1.5rem)" }}>
-                  Earlier roles
-                </h3>
-              </Column>
-              <RolesCarousel roles={about.work.earlier} />
-            </Column>
+            <EarlierRoles roles={about.work.earlier} />
           )}
         </section>
       )}
 
-      <Loadout />
+      <Wins wins={aboutExtras.wins} certificates={aboutExtras.certificates} />
 
-      <section style={{ width: "100%", marginBottom: "var(--static-space-64)" }}>
-        <SectionHeading eyebrow="Trophy case" title="Achievements unlocked" id="achievements" />
-        <AchievementBadges items={aboutExtras.achievements} />
-      </section>
-
-      <Education />
-      <SideQuests />
       <ContactCard />
     </Column>
   );

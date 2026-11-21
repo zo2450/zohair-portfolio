@@ -171,8 +171,10 @@ export interface About extends BasePageConfig {
       logoColor?: string;
       /** Slug of a related case study in /work */
       caseStudy?: string;
-      /** Headline result shown big beside the role, e.g. { value: "87%", label: "less prep time" } */
-      highlight?: { value: string; label: string };
+      /** The role's result, written as a sentence (same style as project headlines) */
+      headline?: string;
+      /** Leave this role out of production builds (e.g. until its details are written) */
+      hiddenInProduction?: boolean;
       /** Tools / skills used in this role */
       tags?: string[];
       /** Shows a pulsing "Current" badge */
@@ -199,7 +201,9 @@ export interface About extends BasePageConfig {
       role: string;
       timeframe: string;
       logo?: string;
-      /** Shown when the role's card is opened in the carousel */
+      /** Group heading in the earlier-roles list */
+      group: string;
+      /** Shown when the role is expanded */
       achievements?: string[];
     }>;
   };
@@ -255,24 +259,18 @@ export interface About extends BasePageConfig {
  * Extra About page sections (character sheet, now, principles, loadout, achievements, side quests).
  */
 export interface AboutExtras {
-  /** Short stats shown in the header card */
-  characterSheet: Array<{ label: string; value: string }>;
-  /** "Now" strip; `updated` is shown as "Updated <date>" */
-  now: { updated: string; items: Array<{ label: string; value: string; icon: IconName }> };
-  /** "How I work" principles */
-  principles: Array<{ title: string; description: string; icon: IconName }>;
-  /** Tools, grouped */
-  loadout: Array<{ title: string; tools: string[] }>;
-  /** Awards and certificates; `image` opens in a dialog when clicked */
-  achievements: Array<{
-    title: string;
-    issuer: string;
-    detail: string;
-    icon: IconName;
-    image?: string;
-  }>;
-  /** Hobbies and life outside work */
-  sideQuests: Array<{ title: string; description: string; icon: IconName }>;
+  /** One line in the header: what's happening right now */
+  now: string;
+  /** Short facts in the header (plain labels) */
+  stats: Array<{ label: string; value: string }>;
+  /** "How I work" principles, each backed by a real result */
+  principles: Array<{ title: string; description: string }>;
+  /** Tools not already shown on a role in the timeline */
+  otherTools: string[];
+  /** The real wins, shown prominently; `image` opens the certificate */
+  wins: Array<{ title: string; detail: string; date: string; image?: string }>;
+  /** Certificates, shown as one quiet line; each opens its scan */
+  certificates: Array<{ title: string; issuer: string; image: string }>;
 }
 
 /**

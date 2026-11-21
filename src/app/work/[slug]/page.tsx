@@ -2,27 +2,25 @@ import { notFound } from "next/navigation";
 import "katex/dist/katex.min.css";
 import { getPosts } from "@/utils/utils";
 import { canViewPath } from "@/utils/pageAccessServer";
+import Link from "next/link";
 import {
   Meta,
   Schema,
   AvatarGroup,
   Button,
   Column,
-  Flex,
-  Heading,
+  Icon,
   Media,
   Text,
   SmartLink,
   Row,
-  Avatar,
-  Line,
-  Tag,
 } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 import { WorkBento } from "@/components/work/WorkBento";
+import heroStyles from "@/components/home/HomeHero.module.scss";
+import styles from "@/components/work/CaseStudy.module.scss";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
@@ -47,7 +45,7 @@ export async function generateMetadata({
   if (!post) return {};
 
   const metadata = Meta.generate({
-    title: post.metadata.title,
+    title: `${post.metadata.title} – ${person.name}`,
     description: post.metadata.summary,
     baseURL: baseURL,
     image: post.metadata.image || `/api/og/generate?title=${post.metadata.title}`,
@@ -85,7 +83,7 @@ export default async function Project({
     })) || [];
 
   return (
-    <Column as="section" maxWidth="m" horizontal="center" gap="l">
+    <Column maxWidth="m" horizontal="center" gap="40">
       <Schema
         as="blogPosting"
         baseURL={baseURL}
@@ -103,110 +101,106 @@ export default async function Project({
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Column maxWidth="s" gap="16" horizontal="center" align="center">
-        <SmartLink href="/work">
-          <Text variant="label-strong-m">Case studies</Text>
-        </SmartLink>
-        <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
-          {post.metadata.timeframe ||
-            (post.metadata.publishedAt && formatDate(post.metadata.publishedAt))}
-        </Text>
-        <Heading variant="display-strong-m">{post.metadata.title}</Heading>
-        {post.metadata.summary && (
-          <Text variant="body-default-l" onBackground="neutral-weak" wrap="balance">
-            {post.metadata.summary}
-          </Text>
-        )}
-      </Column>
-      {(post.metadata.role || post.metadata.outcomes?.length) && (
-        <Column
-          maxWidth="s"
-          gap="20"
-          padding="l"
-          radius="l"
-          border="brand-alpha-medium"
-          background="brand-alpha-weak"
-          style={{ backdropFilter: "blur(var(--static-space-4))" }}
-          aria-label="Case study summary"
-        >
-          <Row gap="xl" wrap s={{ gap: "l" }}>
+      <section className={styles.sheet} aria-labelledby="case-study-title">
+        <Link href="/work" className={styles.back}>
+          <Icon name="arrowRight" size="s" className={styles.backIcon} />
+          All projects
+        </Link>
+        <h1 id="case-study-title" className={styles.title}>
+          {post.metadata.headline || post.metadata.title}
+        </h1>
+        {post.metadata.summary && <p className={styles.lede}>{post.metadata.summary}</p>}
+
+        {(post.metadata.role || post.metadata.outcomes?.length) && (
+          <dl className={styles.facts} aria-label="Project summary">
+            <div>
+              <dt>Project</dt>
+              <dd>{post.metadata.title}</dd>
+            </div>
             {post.metadata.role && (
-              <Column gap="4">
-                <Text variant="label-default-s" onBackground="neutral-weak">
-                  Role
-                </Text>
-                <Text variant="body-strong-m">{post.metadata.role}</Text>
-              </Column>
+              <div>
+                <dt>Role</dt>
+                <dd>{post.metadata.role}</dd>
+              </div>
             )}
             {post.metadata.timeframe && (
-              <Column gap="4">
-                <Text variant="label-default-s" onBackground="neutral-weak">
-                  Timeline
-                </Text>
-                <Text variant="body-strong-m">{post.metadata.timeframe}</Text>
-              </Column>
+              <div>
+                <dt>Timeline</dt>
+                <dd>{post.metadata.timeframe}</dd>
+              </div>
             )}
             {post.metadata.tools && post.metadata.tools.length > 0 && (
-              <Column gap="4">
-                <Text variant="label-default-s" onBackground="neutral-weak">
-                  Tools
-                </Text>
-                <Text variant="body-strong-m">{post.metadata.tools.join(", ")}</Text>
-              </Column>
+              <div>
+                <dt>Tools</dt>
+                <dd>{post.metadata.tools.join(", ")}</dd>
+              </div>
             )}
+            {post.metadata.outcomes && post.metadata.outcomes.length > 0 && (
+              <div className={styles.results}>
+                <dt>Results</dt>
+                <dd>
+                  <ul>
+                    {post.metadata.outcomes.map((outcome) => (
+                      <li key={outcome}>{outcome}</li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            )}
+          </dl>
+        )}
+        {post.metadata.team.length > 0 && (
+          <Row gap="16" vertical="center" marginTop="24">
+            <AvatarGroup reverse avatars={avatars} size="s" />
+            <Text variant="label-default-m" onBackground="neutral-medium">
+              {post.metadata.team.map((member, idx) => (
+                <span key={member.name}>
+                  {idx > 0 && ", "}
+                  <SmartLink href={member.linkedIn}>{member.name}</SmartLink>
+                </span>
+              ))}
+            </Text>
           </Row>
-          {post.metadata.outcomes && post.metadata.outcomes.length > 0 && (
-            <Column gap="8">
-              <Text variant="label-default-s" onBackground="neutral-weak">
-                Results
-              </Text>
-              <Row gap="8" wrap>
-                {post.metadata.outcomes.map((outcome) => (
-                  <Tag key={outcome} size="l">
-                    {outcome}
-                  </Tag>
-                ))}
-              </Row>
-            </Column>
-          )}
-        </Column>
-      )}
-      <Row marginBottom="32" horizontal="center">
-        <Row gap="16" vertical="center">
-          {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="s" />}
-          <Text variant="label-default-m" onBackground="brand-weak">
-            {post.metadata.team?.map((member, idx) => (
-              <span key={idx}>
-                {idx > 0 && (
-                  <Text as="span" onBackground="neutral-weak">
-                    ,{" "}
-                  </Text>
-                )}
-                <SmartLink href={member.linkedIn}>{member.name}</SmartLink>
-              </span>
-            ))}
-          </Text>
-        </Row>
-      </Row>
-      {post.metadata.images.length > 0 && (
-        <Media
-          priority
-          aspectRatio="16 / 9"
-          radius="m"
-          alt={`${post.metadata.title} cover image`}
-          src={post.metadata.images[0]}
-        />
-      )}
-      <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
-        <CustomMDX source={post.content} />
-      </Column>
-      <Column fillWidth gap="40" horizontal="center" marginTop="40">
-        <Line maxWidth="40" />
-        <Heading as="h2" variant="heading-strong-xl" marginBottom="24">
+        )}
+        {post.metadata.images.length > 0 && (
+          <Media
+            priority
+            aspectRatio="16 / 9"
+            radius="m"
+            marginTop="40"
+            alt={`${post.metadata.title} cover image`}
+            src={post.metadata.images[0]}
+          />
+        )}
+        <article className={styles.article}>
+          <CustomMDX source={post.content} />
+        </article>
+
+        <footer className={styles.closer}>
+          <p>Want the longer version of this story? I&apos;m happy to walk through it.</p>
+          <Row gap="12" wrap>
+            <Button href={`mailto:${person.email}`} prefixIcon="email" variant="primary" size="m">
+              Email me
+            </Button>
+            <Button
+              href="/resume.pdf"
+              prefixIcon="document"
+              variant="secondary"
+              size="m"
+              className={heroStyles.glassButton}
+            >
+              Resume
+            </Button>
+          </Row>
+        </footer>
+      </section>
+
+      <section className={styles.more} aria-labelledby="more-projects">
+        <h2 id="more-projects" className={styles.moreHeading}>
           More projects
-        </Heading>
-        <WorkBento exclude={[post.slug]} />
-      </Column>
+        </h2>
+        <WorkBento exclude={[post.slug]} headingLevel="h3" />
+      </section>
       <ScrollToHash />
     </Column>
   );

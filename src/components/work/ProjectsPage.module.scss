@@ -1,0 +1,53 @@
+@use "../breakpoints.scss" as breakpoints;
+
+.page {
+  width: 100%;
+}
+
+.intro {
+  max-width: 44rem;
+  margin: var(--static-space-24) 0 var(--static-space-40);
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.035em !important;
+  font-weight: 650 !important;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: var(--static-space-20) 0 0;
+  max-width: 52ch;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--neutral-on-background-medium);
+}
+
+// Closing call to action on its own solid strip (readable over the ribbons)
+.closer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--static-space-20);
+  margin-top: var(--static-space-16);
+  padding: var(--static-space-32);
+  border-radius: 24px;
+  border: 1px solid var(--neutral-alpha-weak);
+  background: #0c0b12;
+
+  @media (max-width: breakpoints.$s) {
+    padding: var(--static-space-24);
+  }
+}
+
+.closerText {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--neutral-on-background-strong);
+}

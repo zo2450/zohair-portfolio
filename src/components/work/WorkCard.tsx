@@ -1,41 +1,45 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { Heading, Row, Tag, Text } from "@once-ui-system/core";
+import { Icon } from "@once-ui-system/core";
 import styles from "./WorkBento.module.scss";
 
 export interface WorkCardProps {
   href: string;
+  /** The result, written as a sentence (falls back to the project title) */
+  headline: string;
   title: string;
   summary: string;
   role?: string;
-  image?: string;
-  outcomes?: string[];
+  timeframe?: string;
+  tools?: string[];
   /** Grid columns this card spans (1–3) */
   span: number;
-  priority?: boolean;
+  /** Heading level for the headline */
+  headingLevel?: "h2" | "h3";
 }
 
-const MAX_TILT = 7; // degrees
+const MAX_TILT = 6; // degrees
 
 /**
- * Case study card: 3D tilt toward the pointer (layers lift at different depths) and a glowing
- * border segment that follows the pointer around the edge. Tilt is mouse-only and off with
- * reduced motion; keyboard focus shows the glow.
+ * Bento project card (no image): the result is the headline, project details sit below it.
+ * Tilts toward the mouse and lights the border nearest the pointer. Tilt is mouse-only and
+ * off with reduced motion; keyboard focus shows the glow.
  */
 export function WorkCard({
   href,
+  headline,
   title,
   summary,
   role,
-  image,
-  outcomes,
+  timeframe,
+  tools,
   span,
-  priority,
+  headingLevel = "h2",
 }: WorkCardProps) {
   const ref = useRef<HTMLAnchorElement>(null);
+  const Heading = headingLevel;
 
   const onMove = (event: React.PointerEvent) => {
     const el = ref.current;
@@ -47,10 +51,8 @@ export function WorkCard({
     el.style.setProperty("--angle", `${angle.toFixed(1)}deg`);
     el.style.setProperty("--glow", "1");
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const rx = (y / rect.height - 0.5) * -2 * MAX_TILT;
-    const ry = (x / rect.width - 0.5) * 2 * MAX_TILT;
-    el.style.setProperty("--rx", `${rx.toFixed(2)}deg`);
-    el.style.setProperty("--ry", `${ry.toFixed(2)}deg`);
+    el.style.setProperty("--rx", `${((y / rect.height - 0.5) * -2 * MAX_TILT).toFixed(2)}deg`);
+    el.style.setProperty("--ry", `${((x / rect.width - 0.5) * 2 * MAX_TILT).toFixed(2)}deg`);
   };
 
   const onLeave = () => {
@@ -66,49 +68,26 @@ export function WorkCard({
       <Link
         ref={ref}
         href={href}
-        className={styles.card}
+        className={`${styles.card} ${span > 1 ? styles.wide : ""}`}
         onPointerMove={onMove}
         onPointerLeave={onLeave}
       >
         <span className={styles.glow} aria-hidden="true" />
-        {image && (
-          <div className={`${styles.layer} ${styles.cover}`}>
-            <Image
-              src={image}
-              alt=""
-              fill
-              priority={priority}
-              sizes={
-                span > 1 ? "(max-width: 768px) 100vw, 760px" : "(max-width: 768px) 100vw, 380px"
-              }
-              style={{ objectFit: "cover" }}
-            />
+        <div className={styles.body}>
+          <Heading className={styles.headline}>{headline}</Heading>
+          <p className={styles.summary}>{summary}</p>
+        </div>
+        <div className={styles.footer}>
+          <div className={styles.meta}>
+            <p className={styles.project}>{title}</p>
+            {(role || timeframe) && (
+              <p className={styles.detail}>{[role, timeframe].filter(Boolean).join(", ")}</p>
+            )}
+            {tools && tools.length > 0 && <p className={styles.tools}>{tools.join(", ")}</p>}
           </div>
-        )}
-        <div className={`${styles.layer} ${styles.body}`}>
-          {role && (
-            <Text variant="label-default-s" onBackground="neutral-weak">
-              {role}
-            </Text>
-          )}
-          <Heading as="h3" variant="heading-strong-l" wrap="balance">
-            {title}
-          </Heading>
-          <Text variant="body-default-s" onBackground="neutral-weak" wrap="balance">
-            {summary}
-          </Text>
-          {outcomes && outcomes.length > 0 && (
-            <Row gap="8" wrap paddingTop="4">
-              {outcomes.slice(0, span > 1 ? 3 : 2).map((outcome) => (
-                <Tag key={outcome} size="m">
-                  {outcome}
-                </Tag>
-              ))}
-            </Row>
-          )}
-          <Text variant="label-strong-s" className={styles.cta}>
-            Read case study →
-          </Text>
+          <span className={styles.arrow} aria-hidden="true">
+            <Icon name="arrowUpRight" size="m" />
+          </span>
         </div>
       </Link>
     </div>

@@ -158,7 +158,7 @@ const about: About = {
         logoIcon: "amd",
         logoColor: "#000000",
         caseStudy: "amd-aippt-ai-agents",
-        highlight: { value: "4", label: "AI agents built, plus AIPPT owned end to end" },
+        headline: "Built 4 AI agents and took AIPPT end to end",
         tags: ["Python", "Microsoft Graph API", "LLM agents"],
         current: true,
         expanded: true,
@@ -185,7 +185,7 @@ const about: About = {
         role: "Product Management Intern",
         logo: "/images/logos/microsoft.png",
         caseStudy: "microsoft-prospecting-agent",
-        highlight: { value: "$30M+", label: "pipeline from agent workshops" },
+        headline: "Cut seller prep from 15 days to 2",
         tags: ["Copilot Studio", "Power Automate", "Power BI"],
         expanded: true,
         achievements: [
@@ -208,7 +208,7 @@ const about: About = {
         logoText: "IBM",
         logoColor: "#0f62fe",
         caseStudy: "ibm-pro-bono-ai-agent",
-        highlight: { value: "1st place", label: "AI strategy plan" },
+        headline: "Shipped a charity's inbox agent, and won first place for the AI plan",
         tags: ["Copilot", "Usability testing", "AI strategy"],
         achievements: [
           <>
@@ -228,23 +228,20 @@ const about: About = {
         role: "Product Management Intern",
         logoText: "P",
         logoColor: "#1f5aa6",
-        // TODO(Zohair): replace the placeholder with what you did and the result; add a highlight + tags
-        // Placeholder shows in dev previews only
-        achievements:
-          process.env.NODE_ENV === "production"
-            ? []
-            : [
-                <span key="platuni" style={{ color: "#fbbf24", fontStyle: "italic" }}>
-                  [What you worked on at Platuni, and the result]
-                </span>,
-              ],
+        // TODO(Zohair): add what you did + a headline and tags, then remove hiddenInProduction
+        hiddenInProduction: true,
+        achievements: [
+          <span key="platuni" style={{ color: "#fbbf24", fontStyle: "italic" }}>
+            [What you worked on at Platuni, and the result]
+          </span>,
+        ],
         images: [],
       },
       {
         company: "Picnic Game Labs",
         timeframe: "Mar 2025 – May 2025",
         role: "Project Management Intern",
-        highlight: { value: "+18%", label: "early engagement in beta" },
+        headline: "Helped lift early beta engagement 18%",
         tags: ["Jira", "Sprint planning", "Content strategy"],
         logo: "/images/logos/picnic.png",
         achievements: [
@@ -260,10 +257,29 @@ const about: About = {
         images: [],
       },
       {
+        company: "United Community Services of Peel",
+        timeframe: "Sep 2024 – Dec 2024",
+        role: "Software Engineering Intern",
+        headline: "Helped build AI matchmaking and a web app on Azure",
+        tags: ["Microsoft Azure", "ASP.NET Razor Pages", "Bootstrap"],
+        achievements: [
+          <>
+            Helped develop AI matchmaking algorithms on Microsoft Azure, working with datasets to
+            improve matchmaking.
+          </>,
+          <>
+            Built an interactive web app with Azure and Razor Pages (ASP.NET), using HTML, CSS and
+            Bootstrap.
+          </>,
+          <>Designed the UX/UI with modern, responsive design principles.</>,
+        ],
+        images: [],
+      },
+      {
         company: "thinkrr.ai",
         timeframe: "May 2024 – Nov 2024",
         role: "Web Developer & Marketing Associate",
-        highlight: { value: "+15%", label: "organic traffic" },
+        headline: "Launched the company site and grew organic traffic 15%",
         tags: ["Framer", "React", "SEO", "Google Analytics"],
         logo: "/images/logos/thinkrr.png",
         achievements: [
@@ -283,13 +299,12 @@ const about: About = {
         role: "Co-Founder",
         logo: "/images/logos/gamecraftcamp.png",
         caseStudy: "gamecraft-camp",
-        highlight: { value: "1,500+", label: "kids taught C++ game dev" },
+        headline: "Taught 1,500+ kids to build their own games in C++",
         tags: ["C++", "Partnerships", "Fundraising"],
         current: true,
         achievements: [
           <>
-            Co-founded and led a hands-on C++ game development program that has taught 1,500+
-            students aged 8 to 12.
+            Co-founded and led a hands-on C++ game development program for students aged 8 to 12.
           </>,
           <>
             Secured funding from Canada Service Corps and built partnerships with Achēv and Brampton
@@ -301,18 +316,9 @@ const about: About = {
     ],
     earlier: [
       {
-        company: "United Community Services of Peel",
-        role: "Software Engineering Intern",
-        timeframe: "Sep 2024 – Dec 2024",
-        achievements: [
-          "Helped develop AI matchmaking algorithms on Microsoft Azure, working with datasets to improve matchmaking.",
-          "Built an interactive web app with Azure and Razor Pages (ASP.NET), using HTML, CSS and Bootstrap.",
-          "Designed the UX/UI with modern, responsive design principles.",
-        ],
-      },
-      {
         company: "Knorket.AI",
         role: "Growth Intern",
+        group: "Growth & marketing",
         timeframe: "Jan 2024 – Mar 2024",
         logo: "/images/logos/knorket.png",
         achievements: [
@@ -324,17 +330,20 @@ const about: About = {
       {
         company: "Achēv",
         role: "Coding Camp Coordinator",
+        group: "Teaching & community",
         timeframe: "Jun 2023 – Sep 2023",
         logo: "/images/logos/achev.png",
       },
       {
         company: "Carabram",
         role: "Marketing Assistant (Freelance)",
+        group: "Growth & marketing",
         timeframe: "Jun 2023 – Jul 2023",
       },
       {
         company: "Helping Our People Community Projects",
         role: "Executive Assistant",
+        group: "Teaching & community",
         timeframe: "Nov 2022 – Aug 2023",
         logo: "/images/logos/hopcp.png",
         achievements: [
@@ -347,6 +356,7 @@ const about: About = {
       {
         company: "Achēv",
         role: "Digital Marketing Assistant (Freelance)",
+        group: "Growth & marketing",
         timeframe: "Apr 2023",
         logo: "/images/logos/achev.png",
         achievements: [
@@ -357,6 +367,7 @@ const about: About = {
       {
         company: "Achēv",
         role: "Digital Workshop Instructor (Freelance)",
+        group: "Teaching & community",
         timeframe: "Feb 2023",
         logo: "/images/logos/achev.png",
         achievements: [
@@ -368,6 +379,7 @@ const about: About = {
       {
         company: "T4T",
         role: "Marketing Assistant",
+        group: "Growth & marketing",
         timeframe: "Aug 2022 – Oct 2022",
         logo: "/images/logos/t4t.png",
         achievements: [
@@ -378,6 +390,7 @@ const about: About = {
       {
         company: "Z KICKS",
         role: "Independent Sneaker Reseller",
+        group: "Sales & business",
         timeframe: "Mar 2020 – Mar 2022",
         logo: "/images/logos/zkicks.png",
         achievements: [
@@ -388,6 +401,7 @@ const about: About = {
       {
         company: "Dollarama",
         role: "Sales Associate",
+        group: "Sales & business",
         timeframe: "Mar 2021 – Nov 2021",
         logo: "/images/logos/dollarama.png",
         achievements: [
@@ -518,112 +532,67 @@ const gallery: Gallery = {
   images: [],
 };
 
-// About page extras. [Square brackets] mark placeholders for Zohair to fill in.
+// About page extras. Every fact here comes from the resume, old site or certificates.
 const aboutExtras: AboutExtras = {
-  characterSheet: [
-    { label: "Class", value: "AI Product Manager" },
-    { label: "Base", value: "Toronto, ON" },
-    { label: "Languages", value: "English · Urdu" },
-    { label: "Guild", value: "Laurier CS '27" },
+  now: "Building AI agents and AIPPT at AMD",
+  stats: [
+    { label: "Based in", value: "Toronto, ON" },
+    { label: "Studying", value: "Computer Science, Wilfrid Laurier '27" },
+    { label: "Languages", value: "English, Urdu" },
   ],
-  now: {
-    updated: "Nov 2026",
-    items: [
-      { label: "Building", value: "AI agents and AIPPT at AMD", icon: "build" },
-      { label: "Studying", value: "Computer Science at Wilfrid Laurier", icon: "graduation" },
-      { label: "Playing", value: "[What you're playing right now]", icon: "gamepad" },
-    ],
-  },
   // Draft principles, each backed by something on the resume. Edit freely.
   principles: [
     {
       title: "Start with the people using it",
       description:
         "Before building the IBM inbox agent, I ran usability tests with the charity's staff to see how they actually worked.",
-      icon: "users",
     },
     {
       title: "Automate the boring parts",
       description:
         "If a workflow eats days, it should be an agent. At Microsoft that turned 15 days of seller prep into 2.",
-      icon: "zap",
     },
     {
       title: "Ship, then measure",
       description:
-        "AIPPT's AI features went to early users fast. The 1+ hour saved per deck is how I know they worked.",
-      icon: "compass",
+        "AIPPT's AI features went to early users fast. The hour-plus saved per deck is how I know they worked.",
     },
     {
       title: "Teach it back",
       description:
-        "Running GameCraft Camp taught me to explain complex ideas simply, to 1,500+ kids and counting.",
-      icon: "teach",
+        "Running GameCraft Camp taught me to explain complex ideas simply, one 8-year-old at a time.",
     },
   ],
-  loadout: [
-    { title: "Code", tools: ["Python", "Java", "C/C++", "SQL", "JavaScript", "React"] },
+  otherTools: ["Java", "SQL", "JavaScript", "Figma"],
+  wins: [
     {
-      title: "AI & automation",
-      tools: ["Copilot Studio", "Power Automate", "Power BI", "Microsoft Graph API"],
-    },
-    { title: "Product & design", tools: ["Figma", "Jira", "Usability testing"] },
-  ],
-  achievements: [
-    {
-      title: "First place, AI strategy",
-      issuer: "IBM pro bono",
-      detail: "Our AI implementation plan for a charity won first place.",
-      icon: "trophy",
+      title: "First place for an AI implementation plan",
+      detail: "IBM pro bono consulting, built for a charity",
+      date: "2025",
     },
     {
-      title: "Future Leaders Challenge",
-      issuer: "BDO",
-      detail: "Semi-finalist",
-      icon: "trophy",
+      title: "Semi-finalist, BDO Future Leaders Challenge",
+      detail: "One of 44 teams selected from 219",
+      date: "Apr 2024",
       image: "/images/certs/bdo.png",
+    },
+  ],
+  certificates: [
+    { title: "Crash Course on Python", issuer: "Google", image: "/images/certs/google-python.png" },
+    {
+      title: "Fundamentals of Digital Marketing",
+      issuer: "Google",
+      image: "/images/certs/google-marketing.png",
     },
     {
       title: "Enterprise Design Thinking",
       issuer: "IBM",
-      detail: "Badge",
-      icon: "award",
       image: "/images/certs/ibm-design-thinking.png",
-    },
-    {
-      title: "Crash Course on Python",
-      issuer: "Google",
-      detail: "Certificate",
-      icon: "award",
-      image: "/images/certs/google-python.png",
-    },
-    {
-      title: "Fundamentals of Digital Marketing",
-      issuer: "Google",
-      detail: "Certificate",
-      icon: "award",
-      image: "/images/certs/google-marketing.png",
     },
     {
       title: "Audit & Assurance Job Simulation",
       issuer: "KPMG",
-      detail: "Certificate",
-      icon: "award",
       image: "/images/certs/kpmg.png",
-    },
-  ],
-  sideQuests: [
-    {
-      title: "Rock climbing",
-      description: "[Where you climb, or a route you're proud of]",
-      icon: "mountain",
-    },
-    { title: "Gaming", description: "[Your all-time favourite game]", icon: "gamepad" },
-    { title: "Movies", description: "[A film you'd recommend to anyone]", icon: "film" },
-    {
-      title: "Teaching",
-      description: "Co-founded GameCraft Camp, where 1,500+ kids have learned to code games.",
-      icon: "teach",
     },
   ],
 };

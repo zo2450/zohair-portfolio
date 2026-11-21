@@ -172,7 +172,32 @@ function createHR() {
   );
 }
 
+/**
+ * <Draft> wraps case study sections that still need the owner's input.
+ * Shown (amber, dashed) in dev previews only; never rendered in production.
+ */
+function Draft({ children }: { children: ReactNode }) {
+  if (process.env.NODE_ENV === "production") return null;
+  return (
+    <div
+      style={{
+        border: "1px dashed #fbbf24",
+        borderRadius: 12,
+        padding: "4px 16px 12px",
+        margin: "16px 0",
+        color: "#fbbf24",
+      }}
+    >
+      <p style={{ margin: "8px 0 0", fontSize: 12, fontWeight: 600 }}>
+        Draft: hidden on the live site until you fill it in
+      </p>
+      {children}
+    </div>
+  );
+}
+
 const components = {
+  Draft: Draft as any,
   p: createParagraph as any,
   h1: createHeading("h1") as any,
   h2: createHeading("h2") as any,
