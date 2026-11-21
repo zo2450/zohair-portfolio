@@ -20,7 +20,8 @@ export function MetricsStrip() {
           style={{ listStyle: "none", backdropFilter: "blur(var(--static-space-4))" }}
         >
           <Text variant="display-strong-xs" onBackground="neutral-strong">
-            <CountUp value={metric.value} />
+            {/* Starts once the strip's entrance (Enter.module.scss, --i: 4) has faded it in */}
+            <CountUp value={metric.value} startDelayMs={700} durationMs={1600} />
           </Text>
           <Text variant="body-default-s" onBackground="neutral-weak">
             {metric.label}

@@ -1,9 +1,19 @@
+// All words share one grid cell: the cell sizes to the widest word, so swapping never reflows
 .wrap {
   position: relative;
-  display: inline-block;
+  display: inline-grid;
+  justify-items: start;
+  vertical-align: bottom;
+}
+
+.ghost {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  white-space: nowrap;
 }
 
 .word {
+  grid-area: 1 / 1;
   display: inline-block;
   white-space: nowrap;
   color: #c4b5fd; // light violet, matching the background ribbons

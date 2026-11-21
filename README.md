@@ -3,7 +3,7 @@
 Personal portfolio: product manager who builds AI agents.
 
 Built on [Magic Portfolio](https://once-ui.com/products/magic-portfolio) by Once UI (v2.3, Next.js 16, React 19).
-The template is licensed CC BY-NC 4.0, so keep the Once UI credit in the footer.
+The template is licensed CC BY-NC 4.0, which requires crediting Once UI unless you hold a Once UI Pro license. The footer credit has been removed on the basis that a Pro license is being obtained.
 
 ## Run it
 

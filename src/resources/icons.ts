@@ -13,6 +13,8 @@ import {
   HiOutlineGlobeAsiaAustralia,
   HiOutlineRocketLaunch,
   HiXMark,
+  HiOutlineClipboardDocument,
+  HiCheck,
 } from "react-icons/hi2";
 
 import {
@@ -76,6 +78,8 @@ export const iconLibrary = {
   telegram: FaTelegram,
   instagram: FaInstagram,
   close: HiXMark,
+  copy: HiOutlineClipboardDocument,
+  check: HiCheck,
   robot: LuBot,
   mountain: LuMountain,
   gamepad: LuGamepad2,

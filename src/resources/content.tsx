@@ -55,8 +55,31 @@ const home: Home = {
     "Zohair Syed is a product manager who builds AI agents, with internships at AMD, Microsoft and IBM.",
   headline: (
     <>
-      Product Manager who builds{" "}
-      <FlipWords words={["AI agents.", "automations.", "websites.", "game dev camps."]} />
+      {/* Smaller lead-in line; the flip word below is the big hero text (avoids a gap beside "builds") */}
+      <span
+        style={{
+          display: "block",
+          fontSize: "0.56em",
+          lineHeight: 1.25,
+          fontWeight: 600,
+          letterSpacing: "-0.005em", // the display heading's tight tracking looks cramped at this size
+          color: "var(--neutral-on-background-medium)",
+          marginBottom: "0.1em",
+        }}
+      >
+        Product Manager who builds
+      </span>
+      <FlipWords
+        words={[
+          "AI agents.",
+          "agentic workflows.",
+          "agentic products.",
+          "automations.",
+          "UX/UI.",
+          "GTM strategies.",
+          "game dev camps.",
+        ]}
+      />
     </>
   ),
   featured: {

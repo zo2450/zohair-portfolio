@@ -1,64 +1,68 @@
 @use "../breakpoints.scss" as breakpoints;
 
-// The neon glow from the original site's contact card
 .card {
-  box-shadow:
-    0 0 8px #00ffcc,
-    0 0 16px #00ffff,
-    0 0 24px #39ff14,
-    0 0 32px #00ddff;
-  transition: box-shadow 0.3s ease-in-out;
+  width: 100%;
 
-  &:hover {
-    box-shadow:
-      0 0 12px #9400d3,
-      0 0 24px #00ffcc,
-      0 0 36px #39ff14,
-      0 0 48px #00ffff;
+}
+
+// Centre the headline and paragraph on phones, matching the centred buttons
+.centerOnMobile {
+  @media (max-width: breakpoints.$s) {
+    text-align: center;
   }
+}
+
+.eyebrow {
+  color: #c4b5fd;
+  letter-spacing: 0.02em;
 }
 
 .photoWrap {
   position: relative;
   flex-shrink: 0;
-  width: 280px;
-  height: 280px;
+  width: 260px;
+  height: 260px;
 
   @media (max-width: breakpoints.$s) {
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
   }
 }
 
+// Rounded square (not a circle)
 .photo {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 28px;
   object-fit: cover;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  box-shadow: 0 0 60px rgba(124, 58, 237, 0.35);
 }
 
 .float {
   position: absolute;
-  height: auto;
-  animation: float 3s ease-in-out var(--delay, 0s) infinite;
-}
-
-.topRight {
-  top: -8px;
-  right: -8px;
-  width: 72px;
-}
-
-.bottomRight {
-  bottom: 16px;
-  right: -16px;
-  width: 64px;
+  animation: float 3.2s ease-in-out var(--delay, 0s) infinite;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.5));
 }
 
 .bottomLeft {
-  bottom: 16px;
-  left: -16px;
-  width: 96px;
+  bottom: -18px;
+  left: -30px;
+  width: 92px;
+
+  @media (max-width: breakpoints.$s) {
+    width: 72px;
+  }
+}
+
+.topRight {
+  top: -22px;
+  right: -26px;
+  width: 80px;
+
+  @media (max-width: breakpoints.$s) {
+    width: 62px;
+  }
 }
 
 @keyframes float {

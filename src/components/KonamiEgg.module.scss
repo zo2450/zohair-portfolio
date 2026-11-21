@@ -1,0 +1,15 @@
+// Phones have no keyboard for the Konami code, so they get a direct link to the game
+.tapToPlay {
+  display: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #c4b5fd;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+
+  @media (hover: none) {
+    display: inline;
+  }
+}

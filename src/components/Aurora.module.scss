@@ -16,6 +16,22 @@
   height: 100%;
   filter: blur(14px);
   opacity: 0.9;
+  animation: ribbonsIn 1.8s ease-out both; // fade in gently instead of popping in
+}
+
+@keyframes ribbonsIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbons {
+    animation: none;
+  }
 }
 
 @media (max-width: 768px) {

@@ -1,4 +1,6 @@
-import { Column, Heading, Meta, RevealFx, Schema } from "@once-ui-system/core";
+import type { CSSProperties } from "react";
+import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
+import enter from "@/components/home/Enter.module.scss";
 import { home, about, person, baseURL } from "@/resources";
 import { WorkBento } from "@/components/work/WorkBento";
 import { HomeHero } from "@/components/home/HomeHero";
@@ -34,9 +36,9 @@ export default function Home() {
         }}
       />
       <HomeHero />
-      <RevealFx translateY="16" delay={600}>
+      <div className={enter.enter} style={{ "--i": 4, width: "100%" } as CSSProperties}>
         <MetricsStrip />
-      </RevealFx>
+      </div>
       <Column fillWidth gap="l" marginTop="l">
         <Heading as="h2" variant="display-strong-s" paddingX="l">
           Selected work

@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Personal portfolio for Zohair Syed (product manager who builds AI agents), built on the Once UI **Magic Portfolio** template v2.3: Next.js 16 (App Router, Turbopack), React 19, TypeScript, SCSS modules, `@once-ui-system/core` 2.x. Deployed on Vercel. Template license is CC BY-NC 4.0: keep the "Build your portfolio with Once UI" credit in `src/components/Footer.tsx`.
+Personal portfolio for Zohair Syed (product manager who builds AI agents), built on the Once UI **Magic Portfolio** template v2.3: Next.js 16 (App Router, Turbopack), React 19, TypeScript, SCSS modules, `@once-ui-system/core` 2.x. Deployed on Vercel. Template license is CC BY-NC 4.0, which requires a Once UI credit unless you have a Pro license. The owner removed the footer credit and is getting a Once UI Pro license, so don't re-add it unasked.
 
 ## Commands
 

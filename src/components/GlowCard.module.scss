@@ -1,0 +1,40 @@
+.card {
+  --angle: 0deg;
+  --glow: 0;
+  position: relative;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--neutral-alpha-weak);
+  background: #0c0b12; // solid, so the background ribbons never run through the text
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+
+  &:focus-within {
+    --glow: 1;
+  }
+}
+
+// Conic-gradient arc masked to the border ring, aimed at the pointer (--angle)
+.glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  opacity: calc(0.25 + var(--glow) * 0.75); // a faint static glow even at rest
+  background: conic-gradient(
+    from calc(var(--angle) - 70deg),
+    transparent 0deg,
+    #a78bfa 30deg,
+    #e879f9 70deg,
+    #2dd4bf 110deg,
+    transparent 140deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6));
+  transition: opacity 0.3s ease;
+}

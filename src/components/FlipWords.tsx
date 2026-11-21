@@ -40,6 +40,12 @@ export function FlipWords({ words, interval = 2600, className }: FlipWordsProps)
   return (
     <span className={`${styles.wrap} ${className ?? ""}`}>
       <span className={styles.srOnly}>{words.join(", ")}</span>
+      {/* Invisible copies of every word reserve the widest one's space, so the line never reflows */}
+      {words.map((w) => (
+        <span key={w} className={styles.ghost} aria-hidden="true">
+          {w}
+        </span>
+      ))}
       <span
         key={index}
         className={`${styles.word} ${leaving ? styles.leaving : ""}`}
