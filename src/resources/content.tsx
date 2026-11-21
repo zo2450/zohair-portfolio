@@ -1,6 +1,8 @@
 import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
 import { Column, Line, Row, Text } from "@once-ui-system/core";
 import { TypingPill } from "@/components/TypingPill";
+import { StatusDot } from "@/components/StatusDot";
+import { FlipWords } from "@/components/FlipWords";
 
 const person: Person = {
   firstName: "Zohair",
@@ -53,21 +55,21 @@ const home: Home = {
     "Zohair Syed is a product manager who builds AI agents, with internships at AMD, Microsoft and IBM.",
   headline: (
     <>
-      Product Manager.
-      <br />
-      AI Agent Builder.
-      <br />
-      Game Dev Teacher.
+      Product Manager who builds{" "}
+      <FlipWords words={["AI agents.", "automations.", "websites.", "game dev camps."]} />
     </>
   ),
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">AMD</strong>{" "}
+        <Row gap="8" vertical="center" className="ml-4">
+          <StatusDot />
+          <strong>Now</strong>
+        </Row>
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
-          Now building AI agents
+          Building AI agents @ AMD
         </Text>
       </Row>
     ),
@@ -75,9 +77,9 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm {person.firstName}, a Computer Science student at Wilfrid Laurier and a product
-      management intern at AMD. I've shipped AI agents at AMD, Microsoft and IBM, and I co-founded a
-      camp that teaches kids to make their own games.
+      I'm {person.firstName}, a Computer Science student at Wilfrid Laurier and a product management
+      intern at AMD. I've shipped agents at AMD, Microsoft and IBM, and co&#8209;founded a camp
+      that's taught 1,500+ kids to code games.
     </>
   ),
   metrics: [
@@ -94,7 +96,8 @@ const about: About = {
   title: `About – ${person.name}`,
   description: `Meet ${person.name}, a product manager who builds AI agents, based in Toronto`,
   tableOfContent: {
-    display: true,
+    // Off: the fixed side menu overlapped the full-width timeline and carousel
+    display: false,
     subItems: false,
   },
   avatar: {
@@ -230,8 +233,8 @@ const about: About = {
             students aged 8 to 12.
           </>,
           <>
-            Secured funding from Canada Service Corps and built partnerships with Achēv and
-            Brampton Library to expand the program's reach.
+            Secured funding from Canada Service Corps and built partnerships with Achēv and Brampton
+            Library to expand the program's reach.
           </>,
         ],
         images: [],
@@ -242,12 +245,22 @@ const about: About = {
         company: "United Community Services of Peel",
         role: "Software Engineering Intern",
         timeframe: "Sep 2024 – Dec 2024",
+        achievements: [
+          "Helped develop AI matchmaking algorithms on Microsoft Azure, working with datasets to improve matchmaking.",
+          "Built an interactive web app with Azure and Razor Pages (ASP.NET), using HTML, CSS and Bootstrap.",
+          "Designed the UX/UI with modern, responsive design principles.",
+        ],
       },
       {
         company: "Knorket.AI",
         role: "Marketing Consultant Intern",
         timeframe: "Jan 2024 – Mar 2024",
         logo: "/images/logos/knorket.png",
+        achievements: [
+          "Ran market research on customer preferences to sharpen digital marketing targeting.",
+          "Developed and executed campaigns that improved engagement and generated leads through personalized outreach.",
+          "Built marketing performance reports, analyzing KPIs to find improvement areas.",
+        ],
       },
       {
         company: "Achēv",
@@ -265,36 +278,63 @@ const about: About = {
         role: "Executive Assistant",
         timeframe: "Nov 2022 – Aug 2023",
         logo: "/images/logos/hopcp.png",
+        achievements: [
+          "Direct assistant to the founder, supporting all project needs.",
+          "Prepared monthly market research for the upcoming “Dreamers Project”.",
+          "Helped build the company website and social media content.",
+          "Increased workplace efficiency by 25% by reworking communication systems, documents and Google Workspace use.",
+        ],
       },
       {
         company: "Achēv",
         role: "Digital Marketing Assistant (Freelance)",
         timeframe: "Apr 2023",
         logo: "/images/logos/achev.png",
+        achievements: [
+          "Ran segmented email and social media campaigns that drove a 420% increase in ticket sales (1.3k+ tickets).",
+          "Worked with design, content and development teams to keep the brand message consistent.",
+        ],
       },
       {
         company: "Achēv",
         role: "Digital Workshop Instructor (Freelance)",
         timeframe: "Feb 2023",
         logo: "/images/logos/achev.png",
+        achievements: [
+          "Taught 30+ students in an interactive hybrid format.",
+          "Covered web design basics: UX/UI, HTML, CSS, Wix and WordPress, plus Google Analytics and Meta Business Suite.",
+          "Trained participants to build a user-friendly 2D game in C++.",
+        ],
       },
       {
         company: "T4T",
         role: "Marketing Assistant",
         timeframe: "Aug 2022 – Oct 2022",
         logo: "/images/logos/t4t.png",
+        achievements: [
+          "Designed digital strategies that grew Facebook engagement by 47,300% and Instagram reach by 5,000% in two months.",
+          "Optimized budgets and targeting in Meta Business Suite for 130% more campaign reach.",
+        ],
       },
       {
         company: "Z KICKS",
         role: "Independent Sneaker Reseller",
         timeframe: "Mar 2020 – Mar 2022",
         logo: "/images/logos/zkicks.png",
+        achievements: [
+          "Served 350+ customers across the GTA through an online marketing campaign.",
+          "Grew monthly sales by 5% by diversifying inventory to reach new audiences.",
+        ],
       },
       {
         company: "Dollarama",
         role: "Sales Associate",
         timeframe: "Mar 2021 – Nov 2021",
         logo: "/images/logos/dollarama.png",
+        achievements: [
+          "Used up-selling strategies like recommending accessories and complementary purchases.",
+          "Built inventory management and customer relations skills.",
+        ],
       },
     ],
   },
@@ -333,27 +373,62 @@ const about: About = {
       {
         title: "BDO Future Leaders Challenge",
         description: <>Semi-finalist</>,
-        images: [{ src: "/images/certs/bdo.png", alt: "BDO Future Leaders Challenge certificate", width: 16, height: 9 }],
+        images: [
+          {
+            src: "/images/certs/bdo.png",
+            alt: "BDO Future Leaders Challenge certificate",
+            width: 16,
+            height: 9,
+          },
+        ],
       },
       {
         title: "Google: Crash Course on Python",
         description: <>Certificate</>,
-        images: [{ src: "/images/certs/google-python.png", alt: "Google Crash Course on Python certificate", width: 16, height: 9 }],
+        images: [
+          {
+            src: "/images/certs/google-python.png",
+            alt: "Google Crash Course on Python certificate",
+            width: 16,
+            height: 9,
+          },
+        ],
       },
       {
         title: "Google: Fundamentals of Digital Marketing",
         description: <>Certificate</>,
-        images: [{ src: "/images/certs/google-marketing.png", alt: "Google Fundamentals of Digital Marketing certificate", width: 16, height: 9 }],
+        images: [
+          {
+            src: "/images/certs/google-marketing.png",
+            alt: "Google Fundamentals of Digital Marketing certificate",
+            width: 16,
+            height: 9,
+          },
+        ],
       },
       {
         title: "IBM: Enterprise Design Thinking",
         description: <>Badge</>,
-        images: [{ src: "/images/certs/ibm-design-thinking.png", alt: "IBM Enterprise Design Thinking badge", width: 16, height: 9 }],
+        images: [
+          {
+            src: "/images/certs/ibm-design-thinking.png",
+            alt: "IBM Enterprise Design Thinking badge",
+            width: 16,
+            height: 9,
+          },
+        ],
       },
       {
         title: "KPMG: Audit & Assurance Job Simulation",
         description: <>Certificate</>,
-        images: [{ src: "/images/certs/kpmg.png", alt: "KPMG Audit and Assurance job simulation certificate", width: 16, height: 9 }],
+        images: [
+          {
+            src: "/images/certs/kpmg.png",
+            alt: "KPMG Audit and Assurance job simulation certificate",
+            width: 16,
+            height: 9,
+          },
+        ],
       },
     ],
   },

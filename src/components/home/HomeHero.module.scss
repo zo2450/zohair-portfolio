@@ -1,6 +1,9 @@
 @use "../breakpoints.scss" as breakpoints;
 
+// --mx / --my (-1..1) are set by HeroVisual from the mouse position; 0 = at rest.
 .photoWrap {
+  --mx: 0;
+  --my: 0;
   position: relative;
   flex-shrink: 0;
   width: 320px;
@@ -21,64 +24,111 @@
   object-fit: cover;
   border: 1px solid var(--brand-alpha-medium);
   box-shadow: 0 0 80px var(--brand-alpha-medium);
+  transform: perspective(900px) rotateY(calc(var(--mx) * 8deg)) rotateX(calc(var(--my) * -8deg));
+  transition:
+    transform 0.25s ease-out,
+    scale 0.3s ease-out;
   animation: photoIn 1s ease-out 0.2s both;
+
+  &:hover {
+    scale: 1.02;
+  }
 }
 
+// Floating objects: `translate` bobs (keyframes), `transform` follows the mouse (parallax)
 .float {
   position: absolute;
   z-index: 1;
+  height: auto;
+  transform: translate(calc(var(--mx) * var(--depth, 12px)), calc(var(--my) * var(--depth, 12px)));
+  transition: transform 0.3s ease-out;
   animation:
     fadeIn 0.6s ease-out var(--delay, 0s) both,
     float 3.6s ease-in-out var(--delay, 0s) infinite;
 }
 
 .controller {
-  left: -28px;
-  bottom: -6px;
-  width: 110px;
-  height: auto;
+  left: -32px;
+  bottom: -8px;
+  width: 112px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.5));
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &:active {
+    scale: 0.9;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--brand-on-background-medium);
+    outline-offset: 4px;
+    border-radius: 16px;
+  }
 
   @media (max-width: breakpoints.$s) {
+    left: -24px;
     width: 84px;
   }
 }
 
-.badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
+.halo {
+  right: -14px;
+  bottom: 18px;
+  width: 84px;
   border-radius: 50%;
-  border: 1px solid var(--brand-alpha-medium);
-  background: var(--neutral-alpha-weak);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 
   @media (max-width: breakpoints.$s) {
-    width: 52px;
-    height: 52px;
+    right: -10px;
+    width: 64px;
   }
 }
 
-.robot {
-  top: 4px;
-  right: -4px;
+// Black headphones on a dark page: a faint neutral rim light keeps the silhouette readable
+.headphones {
+  top: -18px;
+  right: -14px;
+  width: 100px;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.18)) drop-shadow(0 10px 14px rgba(0, 0, 0, 0.5));
+
+  @media (max-width: breakpoints.$s) {
+    width: 76px;
+  }
 }
 
-.mountain {
-  right: -24px;
-  bottom: 56px;
+.xp {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: -8px;
+  pointer-events: none;
+  white-space: nowrap;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--function-accent-600);
+  text-shadow:
+    0 0 10px rgba(0, 0, 0, 0.9),
+    0 2px 4px rgba(0, 0, 0, 0.8);
+  animation: xpPop 0.9s ease-out forwards;
 }
 
 @keyframes photoIn {
   from {
     opacity: 0;
-    transform: translateX(-40px);
+    translate: -40px 0;
     filter: blur(8px);
   }
   to {
     opacity: 1;
-    transform: none;
+    translate: 0 0;
     filter: blur(0);
   }
 }
@@ -102,9 +152,21 @@
   }
 }
 
+@keyframes xpPop {
+  from {
+    opacity: 1;
+    translate: -50% 0;
+  }
+  to {
+    opacity: 0;
+    translate: -50% -44px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .photo,
-  .float {
+  .float,
+  .xp {
     animation: none;
   }
 }

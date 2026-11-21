@@ -96,16 +96,17 @@ const dataStyle: DataStyleConfig = {
   },
 };
 
-// Carried over from the original site: cursor-following glow, emerald gradient and dot grid
+// Background: the wavy ribbons (src/components/Aurora.tsx, rendered in layout.tsx) replace the
+// old cursor-following green glow. The emerald dot grid is off: it read as a green haze at the top.
 const effects: EffectsConfig = {
   mask: {
-    cursor: true,
-    x: 0,
+    cursor: false,
+    x: 50,
     y: 0,
-    radius: 75,
+    radius: 100,
   },
   gradient: {
-    display: true,
+    display: false,
     opacity: 50,
     x: 50,
     y: 0,
@@ -116,7 +117,7 @@ const effects: EffectsConfig = {
     colorEnd: "static-transparent",
   },
   dots: {
-    display: true,
+    display: false,
     opacity: 20,
     size: "2",
     color: "brand-on-background-weak",

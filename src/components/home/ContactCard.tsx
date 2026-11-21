@@ -1,10 +1,10 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import type { CSSProperties } from "react";
 import { Button, Column, Heading, Row, Text } from "@once-ui-system/core";
 import { person, social } from "@/resources";
 import styles from "./ContactCard.module.scss";
 
-const delay = (seconds: number) => ({ "--delay": `${seconds}s` }) as CSSProperties;
+const delay = (seconds: number) => ({ "--delay": `${seconds}s`, height: "auto" }) as CSSProperties;
 const linkedin = social.find((s) => s.name === "LinkedIn")?.link;
 
 /** Glowing contact card with direct links (no form backend). */
@@ -55,6 +55,7 @@ export function ContactCard() {
         />
         <Image
           src="/images/icons/figma.png"
+          unoptimized
           alt=""
           aria-hidden
           width={72}
@@ -64,6 +65,7 @@ export function ContactCard() {
         />
         <Image
           src="/images/icons/js.png"
+          unoptimized
           alt=""
           aria-hidden
           width={64}
@@ -73,10 +75,11 @@ export function ContactCard() {
         />
         <Image
           src="/images/icons/ga.png"
+          unoptimized
           alt=""
           aria-hidden
-          width={96}
-          height={48}
+          width={464}
+          height={235}
           className={`${styles.float} ${styles.bottomLeft}`}
           style={delay(0.8)}
         />

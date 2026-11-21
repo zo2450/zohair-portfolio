@@ -12,6 +12,7 @@ import {
   HiOutlineDocument,
   HiOutlineGlobeAsiaAustralia,
   HiOutlineRocketLaunch,
+  HiXMark,
 } from "react-icons/hi2";
 
 import {
@@ -74,6 +75,7 @@ export const iconLibrary = {
   reddit: FaReddit,
   telegram: FaTelegram,
   instagram: FaInstagram,
+  close: HiXMark,
   robot: LuBot,
   mountain: LuMountain,
   gamepad: LuGamepad2,

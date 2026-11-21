@@ -22,7 +22,7 @@ import { baseURL, about, person, work } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
-import { Projects } from "@/components/work/Projects";
+import { WorkBento } from "@/components/work/WorkBento";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
@@ -205,7 +205,7 @@ export default async function Project({
         <Heading as="h2" variant="heading-strong-xl" marginBottom="24">
           More case studies
         </Heading>
-        <Projects exclude={[post.slug]} range={[2]} />
+        <WorkBento exclude={[post.slug]} />
       </Column>
       <ScrollToHash />
     </Column>

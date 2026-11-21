@@ -187,6 +187,8 @@ export interface About extends BasePageConfig {
       role: string;
       timeframe: string;
       logo?: string;
+      /** Shown when the role's card is opened in the carousel */
+      achievements?: string[];
     }>;
   };
   /** Studies/education section */

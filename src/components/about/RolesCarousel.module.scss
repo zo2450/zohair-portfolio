@@ -1,0 +1,124 @@
+.track {
+  display: flex;
+  gap: var(--static-space-16);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 4px;
+  padding: 4px 4px var(--static-space-12);
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Tall Apple-style card: tinted glow behind the logo, text at the bottom
+.card {
+  --tint: #7c3aed;
+  position: relative;
+  flex: 0 0 220px;
+  height: 300px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--static-space-20);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--neutral-alpha-weak);
+  background:
+    radial-gradient(120% 70% at 50% 0%, color-mix(in srgb, var(--tint) 45%, transparent), transparent 70%),
+    color-mix(in srgb, var(--page-background) 85%, transparent);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: color-mix(in srgb, var(--tint) 60%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 3px;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  background: var(--neutral-alpha-weak);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.initials {
+  font-weight: 700;
+  font-size: 20px;
+  color: #c4b5fd;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-4);
+}
+
+.dialog {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 64px);
+  padding: 0;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--neutral-alpha-medium);
+  background: var(--page-background);
+  color: var(--neutral-on-background-strong);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+
+  &[open] {
+    animation: dialogIn 0.25s ease-out;
+  }
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .dialog[open] {
+    animation: none;
+  }
+}

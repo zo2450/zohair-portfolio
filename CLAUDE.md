@@ -33,7 +33,16 @@ Next.js 16 differs from older versions (async `params`, `proxy.ts` instead of mi
 
 **Layout:** `src/app/layout.tsx` sets theme `data-*` attributes from `style` with an inline script (falling back to `style.theme`, then saved localStorage values), mounts the `Background` effects, `Header` (location label, nav built from `routes`, live clock, theme toggle) and `Footer` (socials, Konami-code easter egg via `KonamiEgg`, which uses the Once UI toast).
 
-**Custom components** (beyond the template): `components/home/` (`HomeHero` with floating badges, `MetricsStrip`, `ContactCard` with the neon glow), `components/about/CompanyLogo` (logo or initials tile), and `components/TypingPill` (the "Experienced in…" pill, imported directly by `content.tsx`; keep it free of `@/resources` imports to avoid a cycle). Decorative motion is CSS keyframes with `prefers-reduced-motion` fallbacks; there is no framer-motion.
+**Custom components** (beyond the template):
+- `components/home/`:
+  - `HomeHero` (server) renders the status badge, the headline and the CTAs, and includes `HeroVisual`.
+  - `HeroVisual` (client) has the photo plus the floating controller, Halo image and headphones. The mouse parallax and tilt set the CSS vars `--mx`/`--my`, fine pointers only. The controller is a `<button>`: "+1 XP" pops, and 10 presses fire an achievement toast.
+  - `MetricsStrip` + `CountUp` (one-time count-up; the server HTML holds the final value).
+  - `ContactCard` (neon glow).
+- `components/about/CompanyLogo`: logo, or an initials tile when there is no logo.
+- `components/TypingPill` and `components/StatusDot`: both are imported directly by `content.tsx`, so keep them free of `@/resources` imports to avoid a cycle.
+
+Decorative motion is CSS keyframes plus small client hooks, always with `prefers-reduced-motion` fallbacks. There is no framer-motion. For vivid accent color, use `var(--function-accent-600)`: the `accent-on-background-*` tokens are pale tints in dark mode.
 
 **Icons:** add react-icons to `src/resources/icons.ts`. The module augmentation there makes the names valid for every Once UI `icon`/`prefixIcon` prop.
 

@@ -1,6 +1,6 @@
 import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
-import { Projects } from "@/components/work/Projects";
+import { WorkBento } from "@/components/work/WorkBento";
 
 export async function generateMetadata() {
   const metadata = Meta.generate({
@@ -16,7 +16,7 @@ export async function generateMetadata() {
 
 export default function Work() {
   return (
-    <Column maxWidth="m" paddingTop="24">
+    <Column maxWidth="l" paddingTop="24">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -33,7 +33,7 @@ export default function Work() {
       <Heading marginBottom="l" variant="heading-strong-xl" align="center">
         {work.title}
       </Heading>
-      <Projects />
+      <WorkBento />
     </Column>
   );
 }

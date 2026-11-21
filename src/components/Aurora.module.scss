@@ -1,0 +1,25 @@
+// Fixed full-viewport background behind the whole page.
+// Must not sit inside a transformed parent (e.g. RevealFx), or `position: fixed` breaks.
+.aurora {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// The wavy ribbons (canvas), softened with a GPU blur
+.ribbons {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(14px);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .ribbons {
+    filter: blur(10px);
+  }
+}

@@ -1,0 +1,90 @@
+@use "../breakpoints.scss" as breakpoints;
+
+$line-x: 21px; // centre of the dots / line
+
+.timeline {
+  --progress: 0;
+  position: relative;
+  width: 100%;
+  margin-bottom: var(--static-space-40);
+}
+
+// Faint full-height line, with the gradient beam growing inside it
+.track {
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  left: $line-x - 1px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--neutral-alpha-weak);
+  overflow: hidden;
+}
+
+.beam {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, transparent 0%, #a78bfa 8%, #e879f9 60%, #2dd4bf 100%);
+  transform-origin: top;
+  transform: scaleY(var(--progress));
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-48);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--static-space-24);
+  padding-left: 52px;
+
+  @media (max-width: breakpoints.$s) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--static-space-12);
+  }
+}
+
+// Sticks while the role's details scroll past
+.header {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  gap: var(--static-space-12);
+
+  @media (max-width: breakpoints.$s) {
+    position: relative;
+    top: auto;
+  }
+}
+
+.dot {
+  position: absolute;
+  left: -52px + $line-x - 7px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: var(--page-background);
+  border: 2px solid #a78bfa;
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.7);
+}
+
+.content {
+  min-width: 0;
+}
+
+.achievements {
+  margin: 0;
+  padding-left: var(--static-space-20);
+}

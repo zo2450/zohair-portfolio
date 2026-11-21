@@ -1,0 +1,56 @@
+.wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+  color: #c4b5fd; // light violet, matching the background ribbons
+  transition:
+    opacity 0.35s ease,
+    filter 0.35s ease,
+    translate 0.35s ease;
+}
+
+.leaving {
+  opacity: 0;
+  filter: blur(8px);
+  translate: 0 -0.3em;
+}
+
+.letter {
+  display: inline-block;
+  animation: letterIn 0.45s ease both;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes letterIn {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    translate: 0 0.25em;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter {
+    animation: none;
+  }
+}

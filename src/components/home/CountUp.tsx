@@ -1,0 +1,71 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const PATTERN = /^([^\d]*)([\d,]+)(.*)$/;
+
+/**
+ * Counts a metric like "87%", "$30M+" or "1,500+" up from 0 once it scrolls into view.
+ * The server HTML holds the final value, and screen readers always get the final value.
+ */
+export function CountUp({ value, durationMs = 1200 }: { value: string; durationMs?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState(value);
+
+  useEffect(() => {
+    const match = value.match(PATTERN);
+    const el = ref.current;
+    if (!match || !el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const [, prefix, digits, suffix] = match;
+    const target = Number.parseInt(digits.replace(/,/g, ""), 10);
+    const useCommas = digits.includes(",");
+    const format = (n: number) =>
+      `${prefix}${useCommas ? n.toLocaleString("en-US") : String(n)}${suffix}`;
+
+    setDisplay(format(0));
+    let frame = 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / durationMs);
+          const eased = 1 - (1 - t) ** 3;
+          setDisplay(format(Math.round(target * eased)));
+          if (t < 1) frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+      },
+      { threshold: 0.6 },
+    );
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [value, durationMs]);
+
+  return (
+    <span ref={ref}>
+      <span style={visuallyHidden}>{value}</span>
+      <span aria-hidden="true" style={{ fontVariantNumeric: "tabular-nums" }}>
+        {display}
+      </span>
+    </span>
+  );
+}
+
+const visuallyHidden = {
+  position: "absolute",
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  border: 0,
+} as const;

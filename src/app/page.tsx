@@ -1,6 +1,6 @@
 import { Column, Heading, Meta, RevealFx, Schema } from "@once-ui-system/core";
 import { home, about, person, baseURL } from "@/resources";
-import { Projects } from "@/components/work/Projects";
+import { WorkBento } from "@/components/work/WorkBento";
 import { HomeHero } from "@/components/home/HomeHero";
 import { MetricsStrip } from "@/components/home/MetricsStrip";
 import { ContactCard } from "@/components/home/ContactCard";
@@ -41,7 +41,7 @@ export default function Home() {
         <Heading as="h2" variant="display-strong-s" paddingX="l">
           Selected work
         </Heading>
-        <Projects />
+        <WorkBento />
       </Column>
       <ContactCard />
     </Column>

@@ -1,22 +1,8 @@
-import Image from "next/image";
-import type { CSSProperties } from "react";
-import {
-  Avatar,
-  Badge,
-  Button,
-  Column,
-  Heading,
-  Icon,
-  RevealFx,
-  Row,
-  Text,
-} from "@once-ui-system/core";
-import { about, home, person, work } from "@/resources";
-import styles from "./HomeHero.module.scss";
+import { Badge, Button, Column, Heading, RevealFx, Row, Text } from "@once-ui-system/core";
+import { home, person, work } from "@/resources";
+import { HeroVisual } from "./HeroVisual";
 
-const delay = (seconds: number) => ({ "--delay": `${seconds}s` }) as CSSProperties;
-
-/** Two-column hero: headline on the left, photo with floating game-themed badges on the right. */
+/** Two-column hero: status, headline, proof and actions on the left; interactive photo on the right. */
 export function HomeHero() {
   return (
     <Row
@@ -44,7 +30,7 @@ export function HomeHero() {
           </RevealFx>
         )}
         <RevealFx translateY="4" horizontal="start" paddingBottom="16" s={{ horizontal: "center" }}>
-          <Heading wrap="balance" variant="display-strong-l">
+          <Heading as="h1" wrap="balance" variant="display-strong-l">
             {home.headline}
           </Heading>
         </RevealFx>
@@ -65,61 +51,28 @@ export function HomeHero() {
               See my work
             </Button>
             <Button
-              href={about.path}
+              href="/resume.pdf"
+              prefixIcon="document"
               variant="secondary"
               size="m"
-              weight="default"
               data-border="rounded"
             >
-              <Row gap="8" vertical="center" paddingRight="4">
-                <Avatar
-                  style={{ marginLeft: "-0.75rem" }}
-                  src={person.avatar}
-                  size="m"
-                  aria-hidden
-                />
-                About me
-              </Row>
+              Resume
+            </Button>
+            <Button
+              href={`mailto:${person.email}`}
+              prefixIcon="email"
+              variant="tertiary"
+              size="m"
+              data-border="rounded"
+            >
+              Email me
             </Button>
           </Row>
         </RevealFx>
       </Column>
 
-      <div className={styles.photoWrap}>
-        <Image
-          src={person.avatar}
-          alt={`${person.name} in a suit and sunglasses, smiling outdoors`}
-          width={320}
-          height={320}
-          priority
-          className={styles.photo}
-        />
-        <Image
-          src="/images/icons/controller.png"
-          alt=""
-          aria-hidden
-          width={110}
-          height={110}
-          className={`${styles.float} ${styles.controller}`}
-          style={delay(0.8)}
-        />
-        <span
-          className={`${styles.float} ${styles.badge} ${styles.robot}`}
-          style={delay(1)}
-          title="AI agents"
-          aria-hidden
-        >
-          <Icon name="robot" size="l" onBackground="brand-strong" />
-        </span>
-        <span
-          className={`${styles.float} ${styles.badge} ${styles.mountain}`}
-          style={delay(1.2)}
-          title="Rock climbing"
-          aria-hidden
-        >
-          <Icon name="mountain" size="l" onBackground="accent-strong" />
-        </span>
-      </div>
+      <HeroVisual />
     </Row>
   );
 }

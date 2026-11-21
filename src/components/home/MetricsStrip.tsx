@@ -1,5 +1,6 @@
 import { Column, Grid, Text } from "@once-ui-system/core";
 import { home } from "@/resources";
+import { CountUp } from "./CountUp";
 
 /** Row of headline numbers under the hero. */
 export function MetricsStrip() {
@@ -18,8 +19,8 @@ export function MetricsStrip() {
           background="neutral-alpha-weak"
           style={{ listStyle: "none", backdropFilter: "blur(var(--static-space-4))" }}
         >
-          <Text variant="display-strong-xs" onBackground="brand-strong">
-            {metric.value}
+          <Text variant="display-strong-xs" onBackground="neutral-strong">
+            <CountUp value={metric.value} />
           </Text>
           <Text variant="body-default-s" onBackground="neutral-weak">
             {metric.label}
