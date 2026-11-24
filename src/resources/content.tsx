@@ -142,7 +142,7 @@ const about: About = {
         <Text>
           I got into tech through games. In 2023 I co-founded GameCraft Camp to teach kids aged 8 to
           12 how to make their own games in C++, and more than 1,500 students have been through it
-          since. Outside work you'll find me rock climbing, watching movies or gaming.
+          since. Outside work you'll find me watching movies or gaming.
         </Text>
       </Column>
     ),
