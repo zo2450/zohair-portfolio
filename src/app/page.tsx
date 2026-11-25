@@ -3,6 +3,7 @@ import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
 import enter from "@/components/home/Enter.module.scss";
 import { home, about, person, baseURL } from "@/resources";
 import { HomeBento } from "@/components/home/HomeBento";
+import { RevealGrid } from "@/components/work/RevealGrid";
 import projectStyles from "@/components/work/ProjectsPage.module.scss";
 import { HomeHero } from "@/components/home/HomeHero";
 import { MetricsStrip } from "@/components/home/MetricsStrip";
@@ -41,9 +42,12 @@ export default function Home() {
         <MetricsStrip />
       </div>
       <section className={projectStyles.page} aria-labelledby="selected-projects">
-        <Heading as="h2" id="selected-projects" variant="display-strong-s" marginBottom="24">
-          Selected projects
-        </Heading>
+        {/* Same scroll-in as the bento cards below */}
+        <RevealGrid>
+          <Heading as="h2" id="selected-projects" variant="display-strong-s" marginBottom="24">
+            Selected projects
+          </Heading>
+        </RevealGrid>
         <HomeBento />
       </section>
       <ContactCard />
