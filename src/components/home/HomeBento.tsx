@@ -8,7 +8,7 @@ const INTERNSHIPS = ["AMD", "Microsoft", "IBM"];
 
 /**
  * Home page bento, same look as the Projects page:
- * AIPPT (big) + Figma project | skills carousel (WIP) + last three internships (big).
+ * AIPPT (big) + Figma project | skills carousel + last three internships (big).
  */
 export function HomeBento() {
   const aippt = work.projects.find((project) => project.name === "AIPPT");

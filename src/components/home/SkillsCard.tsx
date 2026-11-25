@@ -8,16 +8,15 @@ const url =
   process.env.NEXT_PUBLIC_SKILLS_CAROUSEL_URL ??
   (process.env.NODE_ENV === "production" ? null : "http://localhost:3005");
 
-/** Small Home bento card: the Three.js skills carousel (work in progress) in an iframe. */
+/** Small Home bento card: the Three.js skills carousel in an iframe. */
 export function SkillsCard({ span }: { span: number }) {
   return (
     <div className={bento.cell} style={{ gridColumn: `span ${span}` }}>
-      <section className={`${bento.card} ${styles.skills}`} aria-label="Skills carousel, work in progress">
-        <p className={styles.wip}>Work in progress</p>
+      <section className={`${bento.card} ${styles.skills}`} aria-label="Skills carousel">
         {url ? (
           <iframe
             src={`${url}/?embed`}
-            title="Skills carousel: logos of the tools I use on a 3D ring. Drag to spin."
+            title="Skills carousel: 3D logos of the tools I use. Drag to spin, hover for a name."
             loading="lazy"
             className={styles.frame}
           />
