@@ -1,6 +1,9 @@
-import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
+import Link from "next/link";
+import { Button, Column, Heading, Meta, Row, Schema, Text } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
-import { WorkBento } from "@/components/work/WorkBento";
+import { ProjectGrid } from "@/components/work/ProjectGrid";
+import heroStyles from "@/components/home/HomeHero.module.scss";
+import styles from "@/components/work/ProjectsPage.module.scss";
 
 export async function generateMetadata() {
   const metadata = Meta.generate({
@@ -16,7 +19,7 @@ export async function generateMetadata() {
 
 export default function Work() {
   return (
-    <Column maxWidth="l" paddingTop="24">
+    <Column maxWidth="l" paddingTop="24" paddingX="l" s={{ paddingX: "0" }}>
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -30,10 +33,40 @@ export default function Work() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Heading marginBottom="l" variant="heading-strong-xl" align="center">
-        {work.title}
-      </Heading>
-      <WorkBento />
+
+      <section className={styles.page} aria-labelledby="projects-heading">
+        <header className={styles.intro}>
+          <Heading as="h1" id="projects-heading" className={styles.heading}>
+            Things I&apos;ve built.
+          </Heading>
+          <Text as="p" className={styles.lede}>
+            Code you can open and run, and designs you can click through. For the story behind
+            each role, see <Link href="/about#experience">Experience</Link>.
+          </Text>
+        </header>
+
+        <ProjectGrid />
+
+        <footer className={styles.closer}>
+          <Text as="p" className={styles.closerText}>
+            Got something that needs an agent built, or a PM who builds? Player 2, let&apos;s talk.
+          </Text>
+          <Row gap="12" wrap>
+            <Button href={`mailto:${person.email}`} prefixIcon="email" variant="primary" size="m">
+              Email me
+            </Button>
+            <Button
+              href="/resume.pdf"
+              prefixIcon="document"
+              variant="secondary"
+              size="m"
+              className={heroStyles.glassButton}
+            >
+              Resume
+            </Button>
+          </Row>
+        </footer>
+      </section>
     </Column>
   );
 }

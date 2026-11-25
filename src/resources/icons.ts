@@ -15,6 +15,7 @@ import {
   HiXMark,
   HiOutlineClipboardDocument,
   HiCheck,
+  HiChevronDown,
 } from "react-icons/hi2";
 
 import {
@@ -93,6 +94,7 @@ export const iconLibrary = {
   close: HiXMark,
   copy: HiOutlineClipboardDocument,
   check: HiCheck,
+  chevronDown: HiChevronDown,
   robot: LuBot,
   amd: SiAmd,
   film: LuClapperboard,

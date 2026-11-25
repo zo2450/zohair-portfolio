@@ -25,9 +25,9 @@ const routes: RoutesConfig = {
 };
 
 const display: DisplayConfig = {
-  location: true,
-  time: true,
-  themeSwitcher: true,
+  location: false,
+  time: false,
+  themeSwitcher: false, // dark-only site; the nav shows Resume in this slot
 };
 
 // Enable password protection on selected routes

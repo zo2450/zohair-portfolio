@@ -171,8 +171,10 @@ export interface About extends BasePageConfig {
       logoColor?: string;
       /** Slug of a related case study in /work */
       caseStudy?: string;
-      /** Headline result shown big beside the role, e.g. { value: "87%", label: "less prep time" } */
-      highlight?: { value: string; label: string };
+      /** The role's result, written as a sentence (same style as project headlines) */
+      headline?: string;
+      /** Leave this role out of production builds (e.g. until its details are written) */
+      hiddenInProduction?: boolean;
       /** Tools / skills used in this role */
       tags?: string[];
       /** Shows a pulsing "Current" badge */
@@ -199,7 +201,9 @@ export interface About extends BasePageConfig {
       role: string;
       timeframe: string;
       logo?: string;
-      /** Shown when the role's card is opened in the carousel */
+      /** Group heading in the earlier-roles list */
+      group: string;
+      /** Shown when the role is expanded */
       achievements?: string[];
     }>;
   };
@@ -255,24 +259,25 @@ export interface About extends BasePageConfig {
  * Extra About page sections (character sheet, now, principles, loadout, achievements, side quests).
  */
 export interface AboutExtras {
-  /** Short stats shown in the header card */
-  characterSheet: Array<{ label: string; value: string }>;
-  /** "Now" strip; `updated` is shown as "Updated <date>" */
-  now: { updated: string; items: Array<{ label: string; value: string; icon: IconName }> };
-  /** "How I work" principles */
-  principles: Array<{ title: string; description: string; icon: IconName }>;
-  /** Tools, grouped */
-  loadout: Array<{ title: string; tools: string[] }>;
-  /** Awards and certificates; `image` opens in a dialog when clicked */
-  achievements: Array<{
+  /** One line in the header: what's happening right now */
+  now: string;
+  /** Short facts in the header (plain labels) */
+  stats: Array<{ label: string; value: string }>;
+  /** "How I work" principles, each backed by a real result */
+  principles: Array<{
     title: string;
-    issuer: string;
-    detail: string;
-    icon: IconName;
-    image?: string;
+    description: string;
+    /** Word in the title shown in the accent colour */
+    highlight?: string;
+    /** Slug in src/app/work/projects, with the link text */
+    caseStudy?: { slug: string; label: string };
   }>;
-  /** Hobbies and life outside work */
-  sideQuests: Array<{ title: string; description: string; icon: IconName }>;
+  /** Tools not already shown on a role in the timeline */
+  otherTools: string[];
+  /** The real wins, shown prominently; `image` opens the certificate */
+  wins: Array<{ title: string; detail: string; date: string; image?: string }>;
+  /** Certificates, shown as one quiet line; each opens its scan */
+  certificates: Array<{ title: string; issuer: string; image: string }>;
 }
 
 /**
@@ -285,7 +290,38 @@ export interface Blog extends BasePageConfig {}
  * Work/projects page configuration.
  * @description Configuration for the Work/Projects page, including metadata and navigation label.
  */
-export interface Work extends BasePageConfig {}
+/** A project on the Projects page: something people can open, like a repo or a Figma file. */
+export interface Project {
+  name: string;
+  /** Where it lives, shown above the name, e.g. "amd-tme/AIPPT" or "Figma" */
+  source: string;
+  kind: "github" | "figma";
+  /** Short sentence shown big on the card (falls back to the name) */
+  headline?: string;
+  /** One or two sentences: what it is */
+  summary: string;
+  /** My part in it */
+  role: string;
+  tags: string[];
+  links: {
+    code?: string;
+    live?: string;
+    figma?: string;
+    /** Slug of a case study in src/app/work/projects */
+    caseStudy?: string;
+  };
+  /** Real numbers about my contribution, e.g. from GitHub Insights */
+  stats?: Array<{ value: string; label: string }>;
+  /** Where and when the stats came from, e.g. "From GitHub, Nov 2026" */
+  statsSource?: string;
+  /** Not ready yet: shown in dev only */
+  draft?: boolean;
+}
+
+export interface Work extends BasePageConfig {
+  /** Repos and design files shown on the Projects page (case studies live on as /work/[slug]) */
+  projects: Project[];
+}
 
 /**
  * Gallery page configuration.

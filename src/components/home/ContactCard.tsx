@@ -22,9 +22,7 @@ export function ContactCard() {
         s={{ direction: "column-reverse", padding: "l", gap: "l" }}
       >
         <Column flex={1} gap="16" s={{ horizontal: "center", align: "center" }}>
-          <Text variant="label-strong-s" className={styles.eyebrow}>
-            Player 2, ready?
-          </Text>
+          {/* The game wink lives in the headline itself, not in a label above it */}
           <Heading
             as="h2"
             id="contact-heading"
@@ -32,7 +30,7 @@ export function ContactCard() {
             wrap="balance"
             className={styles.centerOnMobile}
           >
-            Let&apos;s build something agentic.
+            Player 2, ready? Let&apos;s build something agentic.
           </Heading>
           <Text
             variant="body-default-l"
@@ -68,7 +66,10 @@ export function ContactCard() {
               Resume
             </Button>
           </Row>
-          <SmartLink href={`mailto:${person.email}`} style={{ margin: 0 }}>
+          <SmartLink
+            href={`mailto:${person.email}`}
+            style={{ margin: 0, minHeight: 44, display: "inline-flex", alignItems: "center" }}
+          >
             <Text variant="body-default-s" onBackground="neutral-weak">
               or open it in your mail app
             </Text>

@@ -1,0 +1,136 @@
+@use "../breakpoints.scss" as breakpoints;
+
+$surface: #0c0b12;
+$accent: #c4b5fd;
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+.earlier {
+  margin-top: var(--static-space-56);
+  padding-top: var(--static-space-40);
+  border-top: 1px solid var(--neutral-alpha-weak);
+}
+
+.subTitle {
+  margin: 0 0 var(--static-space-24);
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.earlierGroups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--static-space-32);
+
+  @media (max-width: breakpoints.$m) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--static-space-24);
+  }
+}
+
+.groupTitle {
+  margin: 0 0 var(--static-space-8);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $accent;
+}
+
+.earlierList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > li + li {
+    border-top: 1px solid var(--neutral-alpha-weak);
+  }
+}
+
+.earlierItem {
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--static-space-12);
+    min-height: 44px;
+    padding: var(--static-space-8) 0;
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover .earlierRole {
+      color: $accent;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $accent;
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+  }
+
+  &[open] .earlierChevron {
+    transform: rotate(180deg);
+  }
+}
+
+.earlierStatic {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--static-space-8) 0;
+}
+
+.earlierText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.earlierRole {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.earlierMeta {
+  font-size: 0.8125rem;
+  color: var(--neutral-on-background-weak);
+}
+
+.earlierChevron {
+  flex-shrink: 0;
+  color: var(--neutral-on-background-weak);
+  transition: transform 0.25s $ease-out;
+}
+
+.earlierDetails {
+  margin: 0 0 var(--static-space-12);
+  padding-left: var(--static-space-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-8);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--neutral-on-background-medium);
+}
+
+.otherTools {
+  margin: var(--static-space-40) 0 0;
+  font-size: 0.9375rem;
+  color: var(--neutral-on-background-medium);
+
+  strong {
+    color: var(--neutral-on-background-strong);
+    font-weight: 600;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .earlierChevron,
+  .earlierRole {
+    transition: none;
+  }
+}

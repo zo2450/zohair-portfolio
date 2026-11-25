@@ -19,6 +19,8 @@ type Metadata = {
   tag?: string;
   team: Team[];
   link?: string;
+  /** The result, written as a sentence; used as the project's headline in lists */
+  headline?: string;
   /** Case study summary card fields */
   role?: string;
   timeframe?: string;
@@ -55,6 +57,7 @@ function readMDXFile(filePath: string) {
     tag: data.tag || [],
     team: data.team || [],
     link: data.link || "",
+    headline: data.headline || "",
     role: data.role || "",
     timeframe: data.timeframe || "",
     tools: data.tools || [],

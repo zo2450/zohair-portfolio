@@ -1,0 +1,274 @@
+@use "../breakpoints.scss" as breakpoints;
+
+$surface: #0c0b12;
+$accent: #c4b5fd;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-16);
+  width: 100%;
+}
+
+// 4-column bento; cards carry their own spans
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(160px, auto);
+  gap: var(--static-space-16);
+
+  @media (max-width: breakpoints.$m) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: breakpoints.$s) {
+    grid-template-columns: minmax(0, 1fr);
+
+    > * {
+      grid-column: auto !important;
+      grid-row: auto !important;
+    }
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-12);
+  padding: var(--static-space-32);
+  border-radius: 24px;
+  border: 1px solid var(--neutral-alpha-weak);
+  background: $surface;
+
+  @media (max-width: breakpoints.$s) {
+    padding: var(--static-space-24);
+  }
+}
+
+.hero {
+  grid-column: span 3;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--static-space-32);
+
+  @media (max-width: breakpoints.$m) {
+    grid-column: span 2;
+  }
+
+  @media (max-width: breakpoints.$s) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.photo {
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-16);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.5rem, 1.8rem + 2.4vw, 4rem);
+  line-height: 1;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.lede {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  color: var(--neutral-on-background-medium);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--static-space-8);
+}
+
+.caption {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--neutral-on-background-medium);
+}
+
+.camp {
+  grid-column: span 2;
+  // Title, caption and button stay together; any spare height is split above and below.
+  justify-content: center;
+
+  .cardTitle {
+    font-size: clamp(1.625rem, 1.3rem + 1vw, 2.125rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+  background:
+    linear-gradient(160deg, rgba(124, 58, 237, 0.22), transparent 60%),
+    $surface;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.playButton {
+  align-self: flex-start;
+  margin-top: var(--static-space-8);
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(196, 181, 253, 0.55);
+  background: rgba(124, 58, 237, 0.3);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(124, 58, 237, 0.5);
+  }
+}
+
+// Mini projects (separate repos) embedded in iframes
+.embedCard {
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  flex: 1;
+  border: 0;
+  background: transparent;
+}
+
+.embedFallback {
+  flex: 1;
+  padding: var(--static-space-32) var(--static-space-32) 0;
+}
+
+.embedLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  padding: 2px var(--static-space-20) 2px var(--static-space-32);
+
+  @media (max-width: breakpoints.$s) {
+    padding: 2px var(--static-space-12) 2px var(--static-space-24);
+  }
+  border-top: 1px solid var(--neutral-alpha-weak);
+}
+
+.embedName {
+  margin-right: auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.embedLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  color: $accent !important;
+
+  &:hover {
+    background: var(--neutral-alpha-weak);
+  }
+}
+
+.island .frame {
+  min-height: 240px;
+
+  @media (max-width: breakpoints.$s) {
+    min-height: 280px;
+  }
+}
+
+.inbox {
+  grid-column: span 2;
+  grid-row: span 2;
+
+  .frame {
+    min-height: 520px;
+  }
+
+  @media (max-width: breakpoints.$s) {
+    .frame {
+      min-height: 560px;
+    }
+  }
+}
+
+.work {
+  grid-column: span 2;
+}
+
+.sheet {
+  width: 100%;
+  padding: var(--static-space-48) var(--static-space-56);
+  border-radius: 28px;
+  border: 1px solid var(--neutral-alpha-weak);
+  background: $surface;
+
+  @media (max-width: breakpoints.$s) {
+    padding: var(--static-space-32) var(--static-space-20);
+  }
+}
+
+.sectionTitle {
+  margin: 0 0 var(--static-space-24);
+  font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+
+.subTitle {
+  margin: var(--static-space-40) 0 var(--static-space-16);
+  font-size: 1.375rem;
+  font-weight: 650;
+}
+
+.wins {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-12);
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  span {
+    font-size: 0.9375rem;
+    color: var(--neutral-on-background-medium);
+  }
+}

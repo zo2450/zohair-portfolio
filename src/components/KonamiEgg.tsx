@@ -47,8 +47,14 @@ export function KonamiEgg() {
         progress = key === SEQUENCE[0] ? 1 : 0;
       }
     };
+    // Other components can open the game directly (e.g. a "play" button on the About page)
+    const onOpen = () => setOpen(true);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("open-alien-defender", onOpen);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("open-alien-defender", onOpen);
+    };
   }, [addToast]);
 
   return (
