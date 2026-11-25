@@ -3,6 +3,7 @@ import { ProjectCard } from "@/components/work/ProjectCard";
 import bento from "@/components/work/WorkBento.module.scss";
 import { InternshipsCard } from "./InternshipsCard";
 import { SkillsCard } from "./SkillsCard";
+import { RevealGrid } from "@/components/work/RevealGrid";
 
 const INTERNSHIPS = ["AMD", "Microsoft", "IBM"];
 
@@ -29,11 +30,11 @@ export function HomeBento() {
     }));
 
   return (
-    <div className={bento.grid}>
+    <RevealGrid className={bento.grid}>
       {aippt && <ProjectCard project={aippt} span={2} casePath={work.path} headingLevel="h3" />}
       {figma && <ProjectCard project={figma} span={1} casePath={work.path} headingLevel="h3" />}
       <SkillsCard span={1} />
       <InternshipsCard items={internships} span={2} />
-    </div>
+    </RevealGrid>
   );
 }

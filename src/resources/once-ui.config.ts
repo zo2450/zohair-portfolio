@@ -27,7 +27,7 @@ const routes: RoutesConfig = {
 const display: DisplayConfig = {
   location: false,
   time: false,
-  themeSwitcher: true,
+  themeSwitcher: false, // dark-only site; the nav shows Resume in this slot
 };
 
 // Enable password protection on selected routes

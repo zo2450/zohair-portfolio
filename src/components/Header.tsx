@@ -7,7 +7,6 @@ import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, person, about, blog, work, gallery } from "@/resources";
 import type { IconName } from "@/resources/icons";
-import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
 
 type TimeDisplayProps = {
@@ -130,12 +129,9 @@ export const Header = () => {
                     </Fragment>
                   ),
               )}
-              {display.themeSwitcher && (
-                <>
-                  <Line background="neutral-alpha-medium" vert maxHeight="24" />
-                  <ThemeToggle />
-                </>
-              )}
+              {/* Resume in the slot the theme toggle used (the site is dark-only). */}
+              <Line background="neutral-alpha-medium" vert maxHeight="24" />
+              <ToggleButton prefixIcon="document" href="/resume.pdf" aria-label="Resume" title="Resume" />
             </Row>
           </Row>
         </Row>

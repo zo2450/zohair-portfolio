@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const PATTERN = /^([^\d]*)([\d,]+)(.*)$/;
+const PATTERN = /^([^\d]*)([\d,]+(?:\.\d+)?)(.*)$/;
 
 /**
- * Counts a metric like "87%", "$30M+" or "1,500+" up from 0 once it scrolls into view.
+ * Counts a metric like "87%", "$30M+", "1,500+" or "33.3k" up from 0 once it scrolls into view.
  * The server HTML holds the final value, and screen readers always get the final value.
  */
 export function CountUp({
@@ -28,10 +28,15 @@ export function CountUp({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const [, prefix, digits, suffix] = match;
-    const target = Number.parseInt(digits.replace(/,/g, ""), 10);
+    const target = Number.parseFloat(digits.replace(/,/g, ""));
+    const decimals = digits.includes(".") ? digits.split(".")[1].length : 0;
     const useCommas = digits.includes(",");
-    const format = (n: number) =>
-      `${prefix}${useCommas ? n.toLocaleString("en-US") : String(n)}${suffix}`;
+    const format = (n: number) => {
+      const shown = useCommas
+        ? n.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+        : n.toFixed(decimals);
+      return `${prefix}${shown}${suffix}`;
+    };
 
     setDisplay(format(0));
     let frame = 0;
@@ -45,7 +50,7 @@ export function CountUp({
           const tick = (now: number) => {
             const t = Math.min(1, (now - start) / durationMs);
             const eased = 1 - (1 - t) ** 3; // ease-out: fast start, gentle landing
-            setDisplay(format(Math.round(target * eased)));
+            setDisplay(format(t < 1 ? target * eased : target));
             if (t < 1) frame = requestAnimationFrame(tick);
           };
           frame = requestAnimationFrame(tick);

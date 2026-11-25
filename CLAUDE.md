@@ -31,7 +31,7 @@ Next.js 16 differs from older versions (async `params`, `proxy.ts` instead of mi
 
 **Routing and access:** `RouteGuard` (client) renders the 404 page for routes disabled in `routes`, and handles password-protected pages. `src/proxy.ts` rewrites protected routes to `/locked` unless a signed cookie from `/api/authenticate` is present (`PAGE_ACCESS_PASSWORD` / `PAGE_ACCESS_SECRET` in `.env`, see `.env.example`).
 
-**Layout:** `src/app/layout.tsx` sets theme `data-*` attributes from `style` with an inline script (falling back to `style.theme`, then saved localStorage values), mounts the `Background` effects, `Header` (nav built from `routes` and the theme toggle; the location label and clock are switched off in `display`) and `Footer` (socials, Konami-code easter egg via `KonamiEgg`, which uses the Once UI toast).
+**Layout:** `src/app/layout.tsx` sets theme `data-*` attributes from `style` with an inline script (falling back to `style.theme`, then saved localStorage values), mounts the `Background` effects, `Header` (nav built from `routes`, plus a Resume button where the theme toggle was, since the site is dark-only; the location label, clock and theme switcher are off in `display`) and `Footer` (socials, Konami-code easter egg via `KonamiEgg`, which uses the Once UI toast).
 
 **Custom components** (beyond the template):
 - `components/home/`:

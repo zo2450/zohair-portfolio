@@ -6,6 +6,7 @@ import type { Project } from "@/types";
 import bento from "./WorkBento.module.scss";
 import styles from "./ProjectGrid.module.scss";
 import { useTilt } from "./useTilt";
+import { CountUp } from "@/components/home/CountUp";
 
 /**
  * A project in the bento: same tilt and glow as the case-study cards. The whole card opens the
@@ -55,7 +56,10 @@ export function ProjectCard({
                 {project.stats.map((stat) => (
                   <div key={stat.label}>
                     <dt>{stat.label}</dt>
-                    <dd>{stat.value}</dd>
+                    <dd>
+                      {/* Starts after the card's own scroll-in (RevealGrid) has settled */}
+                      <CountUp value={stat.value} startDelayMs={500} durationMs={1600} />
+                    </dd>
                   </div>
                 ))}
               </dl>
