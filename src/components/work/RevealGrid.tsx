@@ -28,13 +28,23 @@ export function RevealGrid({ className, children }: { className?: string; childr
             observer.unobserve(cell);
           });
       },
-      { threshold: 0.15 },
+      // Start as soon as a sliver of the card is on screen.
+      { threshold: 0.05 },
     );
 
-    // Cards already on screen at load reveal straight away (still staggered).
+    // Hide the cards, and let the browser paint that hidden state before observing. Otherwise
+    // anything already on screen at load goes hidden and revealed in the same frame, so its
+    // transition never plays and it just appears.
     grid.dataset.ready = "";
-    for (const cell of cells) observer.observe(cell);
-    return () => observer.disconnect();
+    let frame = requestAnimationFrame(() => {
+      frame = requestAnimationFrame(() => {
+        for (const cell of cells) observer.observe(cell);
+      });
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, []);
 
   return (

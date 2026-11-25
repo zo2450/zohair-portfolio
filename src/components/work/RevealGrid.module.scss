@@ -1,19 +1,22 @@
 // Same motion as the hero entrance (home/Enter.module.scss), triggered per card on scroll.
 $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
+// Hidden state snaps on instantly (no transition), so content already on screen at load
+// doesn't fade out first.
 .reveal[data-ready] > * {
   opacity: 0;
   translate: 0 18px;
   filter: blur(6px);
+}
+
+// Only the reveal animates.
+.reveal[data-ready] > [data-revealed] {
+  opacity: 1;
+  translate: 0 0;
+  filter: none;
   transition:
     opacity 0.9s $ease-out,
     translate 0.9s $ease-out,
     filter 0.9s $ease-out;
   transition-delay: calc(var(--i, 0) * 110ms);
-}
-
-.reveal[data-ready] > [data-revealed] {
-  opacity: 1;
-  translate: 0 0;
-  filter: none;
 }
