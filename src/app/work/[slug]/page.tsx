@@ -102,9 +102,9 @@ export default async function Project({
         }}
       />
       <section className={styles.sheet} aria-labelledby="case-study-title">
-        <Link href="/work" className={styles.back}>
+        <Link href="/about#experience" className={styles.back}>
           <Icon name="arrowRight" size="s" className={styles.backIcon} />
-          All projects
+          All experience
         </Link>
         <h1 id="case-study-title" className={styles.title}>
           {post.metadata.headline || post.metadata.title}
@@ -133,6 +133,17 @@ export default async function Project({
               <div>
                 <dt>Tools</dt>
                 <dd>{post.metadata.tools.join(", ")}</dd>
+              </div>
+            )}
+            {post.metadata.link && (
+              <div>
+                <dt>Code</dt>
+                <dd>
+                  <a href={post.metadata.link} target="_blank" rel="noreferrer" className={styles.factLink}>
+                    <Icon name="github" size="s" />
+                    {post.metadata.link.replace(/^https?:\/\/(www\.)?(github\.com\/)?/, "")}
+                  </a>
+                </dd>
               </div>
             )}
             {post.metadata.outcomes && post.metadata.outcomes.length > 0 && (
@@ -197,7 +208,7 @@ export default async function Project({
 
       <section className={styles.more} aria-labelledby="more-projects">
         <h2 id="more-projects" className={styles.moreHeading}>
-          More projects
+          More case studies
         </h2>
         <WorkBento exclude={[post.slug]} headingLevel="h3" />
       </section>

@@ -1,6 +1,6 @@
 import { Icon } from "@once-ui-system/core";
 import type { About } from "@/types";
-import styles from "./AboutSections.module.scss";
+import styles from "./EarlierRoles.module.scss";
 
 type EarlierRole = NonNullable<About["work"]["earlier"]>[number];
 

@@ -264,7 +264,14 @@ export interface AboutExtras {
   /** Short facts in the header (plain labels) */
   stats: Array<{ label: string; value: string }>;
   /** "How I work" principles, each backed by a real result */
-  principles: Array<{ title: string; description: string }>;
+  principles: Array<{
+    title: string;
+    description: string;
+    /** Word in the title shown in the accent colour */
+    highlight?: string;
+    /** Slug in src/app/work/projects, with the link text */
+    caseStudy?: { slug: string; label: string };
+  }>;
   /** Tools not already shown on a role in the timeline */
   otherTools: string[];
   /** The real wins, shown prominently; `image` opens the certificate */
@@ -283,7 +290,38 @@ export interface Blog extends BasePageConfig {}
  * Work/projects page configuration.
  * @description Configuration for the Work/Projects page, including metadata and navigation label.
  */
-export interface Work extends BasePageConfig {}
+/** A project on the Projects page: something people can open, like a repo or a Figma file. */
+export interface Project {
+  name: string;
+  /** Where it lives, shown above the name, e.g. "amd-tme/AIPPT" or "Figma" */
+  source: string;
+  kind: "github" | "figma";
+  /** Short sentence shown big on the card (falls back to the name) */
+  headline?: string;
+  /** One or two sentences: what it is */
+  summary: string;
+  /** My part in it */
+  role: string;
+  tags: string[];
+  links: {
+    code?: string;
+    live?: string;
+    figma?: string;
+    /** Slug of a case study in src/app/work/projects */
+    caseStudy?: string;
+  };
+  /** Real numbers about my contribution, e.g. from GitHub Insights */
+  stats?: Array<{ value: string; label: string }>;
+  /** Where and when the stats came from, e.g. "From GitHub, Nov 2026" */
+  statsSource?: string;
+  /** Not ready yet: shown in dev only */
+  draft?: boolean;
+}
+
+export interface Work extends BasePageConfig {
+  /** Repos and design files shown on the Projects page (case studies live on as /work/[slug]) */
+  projects: Project[];
+}
 
 /**
  * Gallery page configuration.

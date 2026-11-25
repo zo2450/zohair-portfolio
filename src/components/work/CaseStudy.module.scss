@@ -91,6 +91,21 @@ $accent: #c4b5fd;
   }
 }
 
+.factLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-weight: 600;
+  color: $accent !important;
+  overflow-wrap: anywhere;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
 .results {
   grid-column: 1 / -1;
 

@@ -31,7 +31,7 @@ Next.js 16 differs from older versions (async `params`, `proxy.ts` instead of mi
 
 **Routing and access:** `RouteGuard` (client) renders the 404 page for routes disabled in `routes`, and handles password-protected pages. `src/proxy.ts` rewrites protected routes to `/locked` unless a signed cookie from `/api/authenticate` is present (`PAGE_ACCESS_PASSWORD` / `PAGE_ACCESS_SECRET` in `.env`, see `.env.example`).
 
-**Layout:** `src/app/layout.tsx` sets theme `data-*` attributes from `style` with an inline script (falling back to `style.theme`, then saved localStorage values), mounts the `Background` effects, `Header` (location label, nav built from `routes`, live clock, theme toggle) and `Footer` (socials, Konami-code easter egg via `KonamiEgg`, which uses the Once UI toast).
+**Layout:** `src/app/layout.tsx` sets theme `data-*` attributes from `style` with an inline script (falling back to `style.theme`, then saved localStorage values), mounts the `Background` effects, `Header` (nav built from `routes` and the theme toggle; the location label and clock are switched off in `display`) and `Footer` (socials, Konami-code easter egg via `KonamiEgg`, which uses the Once UI toast).
 
 **Custom components** (beyond the template):
 - `components/home/`:
@@ -39,7 +39,8 @@ Next.js 16 differs from older versions (async `params`, `proxy.ts` instead of mi
   - `HeroVisual` (client) has the photo plus the floating controller, Halo image and headphones. The mouse parallax and tilt set the CSS vars `--mx`/`--my`, fine pointers only. The controller is a `<button>`: "+1 XP" pops, and 10 presses fire an achievement toast.
   - `MetricsStrip` + `CountUp` (one-time count-up; the server HTML holds the final value).
   - `ContactCard` (neon glow).
-- `components/about/`: the About page (`AboutHeader`, `Principles`, `ExperienceTimeline`, `EarlierRoles`, `Wins`, `CompanyLogo`). Every section sits on a solid `.sheet` so the ribbon background never runs behind text. Data comes from `about` and `aboutExtras` in `content.tsx`. A role with `hiddenInProduction: true` only shows in dev.
+- `components/about/`: the About page. `AboutPage` is a bento: hero, the Pocket island card, the GameCraft card (its button opens the Alien Defender game via the `open-alien-defender` window event), `HowIWork` (each principle opens to its proof and case study; data in `aboutExtras.principles`) and the inbox agent card. Below that, a solid `.sheet` with `ExperienceTimeline` (logos, expandable details, case study links), "Also work with", `EarlierRoles` and wins, then `ContactCard`. Copy lives in `about/data.ts` (built from `about` and `aboutExtras`). A role with `hiddenInProduction: true` only shows in dev.
+- Mini projects: `ProjectEmbed` iframes two separate repos that live next to this one, `inbox-agent` (/embed) and `pocket-island` (?embed). Their deployed URLs come from `NEXT_PUBLIC_INBOX_AGENT_URL` and `NEXT_PUBLIC_POCKET_ISLAND_URL`; in dev they fall back to localhost:3003 and :3004, and in production without a URL the card shows a text fallback.
 - `components/work/`: `WorkBento` + `WorkCard` (text-only bento cards: the result as the headline, plus tilt and glow), used on Home, /work and "More projects". Case study layout styles are in `CaseStudy.module.scss`. MDX `<Draft>` blocks show only in dev.
 - `components/StatusDot` and `components/FlipWords` are imported directly by `content.tsx`, so keep them free of `@/resources` imports to avoid a cycle.
 

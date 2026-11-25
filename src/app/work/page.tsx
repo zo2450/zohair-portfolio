@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { Button, Column, Heading, Meta, Row, Schema, Text } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
-import { WorkBento } from "@/components/work/WorkBento";
+import { ProjectGrid } from "@/components/work/ProjectGrid";
 import heroStyles from "@/components/home/HomeHero.module.scss";
 import styles from "@/components/work/ProjectsPage.module.scss";
 
@@ -36,15 +37,15 @@ export default function Work() {
       <section className={styles.page} aria-labelledby="projects-heading">
         <header className={styles.intro}>
           <Heading as="h1" id="projects-heading" className={styles.heading}>
-            Agents I&apos;ve shipped, and the camp I started.
+            Things I&apos;ve built.
           </Heading>
           <Text as="p" className={styles.lede}>
-            Each project leads with what changed. Open one for the problem, what I did, and the
-            numbers behind it.
+            Code you can open and run, and designs you can click through. For the story behind
+            each role, see <Link href="/about#experience">Experience</Link>.
           </Text>
         </header>
 
-        <WorkBento />
+        <ProjectGrid />
 
         <footer className={styles.closer}>
           <Text as="p" className={styles.closerText}>

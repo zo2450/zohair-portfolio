@@ -13,7 +13,7 @@ interface WorkBentoProps {
 const PATTERN = [2, 1, 1, 2];
 
 /** Spans for n cards: follow PATTERN; a leftover card fills its row so there are no gaps. */
-function spansFor(count: number) {
+export function spansFor(count: number) {
   const spans = Array.from({ length: count }, (_, i) => PATTERN[i % PATTERN.length]);
   const used = spans.reduce((sum, s) => sum + s, 0);
   const remainder = used % 3;

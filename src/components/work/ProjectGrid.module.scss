@@ -1,0 +1,119 @@
+// Additions to WorkBento.module.scss for project cards, which hold more than one link.
+
+$accent: #c4b5fd;
+
+// The card is an <article>, so the hover/focus states WorkBento puts on the link move here.
+.card {
+  &:focus-within {
+    --glow: 1;
+    border-color: var(--neutral-alpha-medium);
+  }
+
+  &:focus-within h2 {
+    color: $accent;
+  }
+
+  // The text layers sit in front of the cover link (they're lifted in 3D), so let clicks
+  // pass through them to it. Only the extra links take clicks themselves.
+  > div {
+    pointer-events: none;
+  }
+}
+
+// Covers the whole card so a click anywhere opens the code. Sits under the extra links.
+.cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+
+  &:focus-visible {
+    outline: 2px solid $accent;
+    outline-offset: 4px;
+  }
+}
+
+.source {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-code);
+  font-size: 0.8125rem !important;
+}
+
+.extraLinks {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--static-space-20);
+  margin-top: var(--static-space-4);
+}
+
+.extraLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $accent !important;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+// Contribution numbers: value over label, in a row, with the source underneath.
+.stats {
+  margin: var(--static-space-32) 0 0;
+
+  dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--static-space-16) var(--static-space-40);
+    margin: 0;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  dd {
+    margin: 0;
+    font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
+    line-height: 1.1;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--neutral-on-background-strong);
+  }
+
+  dt {
+    margin-top: 2px;
+    font-size: 0.875rem;
+    color: var(--neutral-on-background-medium);
+  }
+
+  figcaption {
+    margin-top: var(--static-space-12);
+    font-size: 0.75rem;
+    color: var(--neutral-on-background-weak);
+  }
+}
+
+// Unfinished entries (dev only): dashed amber outline so they're obviously not real yet.
+.card[data-draft] {
+  border-style: dashed;
+  border-color: rgba(251, 191, 36, 0.5);
+
+  h2,
+  p {
+    color: #fbbf24 !important;
+    font-style: italic;
+  }
+}

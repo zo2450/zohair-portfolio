@@ -1,0 +1,149 @@
+@use "../breakpoints.scss" as breakpoints;
+
+$accent: #c4b5fd;
+
+// ---- Skills carousel (iframe) ----
+.skills {
+  position: relative;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  // No tilt here: dragging spins the carousel instead.
+  transform: none;
+}
+
+.wip {
+  position: absolute;
+  top: var(--static-space-20);
+  left: var(--static-space-24);
+  z-index: 1;
+  margin: 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  background: #0c0b12;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fcd34d;
+}
+
+.frame {
+  display: block;
+  flex: 1;
+  width: 100%;
+  min-height: 260px;
+  border: 0;
+  background: transparent;
+}
+
+.fallback {
+  flex: 1;
+  margin: 0;
+  padding: var(--static-space-64) var(--static-space-24) var(--static-space-24);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--neutral-on-background-medium);
+}
+
+.skillsFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px var(--static-space-12) 2px var(--static-space-24);
+  border-top: 1px solid var(--neutral-alpha-weak);
+}
+
+.skillsName {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.iconLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  color: $accent !important;
+
+  &:hover {
+    background: var(--neutral-alpha-weak);
+  }
+}
+
+// ---- Internships ----
+.internships:focus-within {
+  --glow: 1;
+}
+
+.roles {
+  list-style: none;
+  margin: var(--static-space-24) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-16);
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--static-space-16);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.roleLine {
+  font-size: 1rem;
+  color: var(--neutral-on-background-medium);
+
+  strong {
+    margin-right: 6px;
+    font-weight: 600;
+    color: var(--neutral-on-background-strong);
+  }
+}
+
+.result {
+  margin-top: 2px !important;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--neutral-on-background-strong);
+}
+
+.when {
+  margin-top: 2px !important;
+  font-size: 0.8125rem;
+  color: var(--neutral-on-background-weak);
+}
+
+.cta {
+  transform: translateZ(16px);
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(196, 181, 253, 0.55);
+  background: rgba(124, 58, 237, 0.3);
+  color: #ffffff !important;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(124, 58, 237, 0.5);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent;
+    outline-offset: 3px;
+  }
+}

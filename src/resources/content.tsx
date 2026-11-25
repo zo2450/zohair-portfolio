@@ -91,7 +91,7 @@ const home: Home = {
         </Row>
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
-          Building AI agents @ AMD
+          Building agentic products @ AMD
         </Text>
       </Row>
     ),
@@ -142,7 +142,7 @@ const about: About = {
         <Text>
           I got into tech through games. In 2023 I co-founded GameCraft Camp to teach kids aged 8 to
           12 how to make their own games in C++, and more than 1,500 students have been through it
-          since. Outside work you'll find me rock climbing, watching movies or gaming.
+          since. Outside work you'll find me watching movies or gaming.
         </Text>
       </Column>
     ),
@@ -185,7 +185,7 @@ const about: About = {
         role: "Product Management Intern",
         logo: "/images/logos/microsoft.png",
         caseStudy: "microsoft-prospecting-agent",
-        headline: "Cut seller prep from 15 days to 2",
+        headline: "Contributed to $30M+ in pipeline revenue",
         tags: ["Copilot Studio", "Power Automate", "Power BI"],
         expanded: true,
         achievements: [
@@ -520,8 +520,77 @@ const work: Work = {
   path: "/work",
   label: "Projects",
   title: `Projects – ${person.name}`,
-  description: `Product and AI agent projects by ${person.name}`,
-  // Each .mdx file in src/app/work/projects becomes a case study page
+  description: `Code and design projects by ${person.name}`,
+  // Each .mdx file in src/app/work/projects still becomes a case study page (linked from About).
+  projects: [
+    {
+      name: "AIPPT",
+      headline: "Added AI deck generation and reviews to a PowerPoint toolkit",
+      source: "amd-tme/AIPPT",
+      kind: "github",
+      summary:
+        "Scripting and a web front-end for viewing, annotating, analyzing, tagging and remixing PowerPoint decks.",
+      role: "Product owner and contributor at AMD.",
+      tags: ["Python", "JavaScript", "Go"],
+      // My account is zsyed-amd. Pulled 2026-11-23.
+      // Commits (non-merge): 37 merged + 92 in PR #53 + 2 in PR #29 = 131.
+      // Lines: net additions per PR ("Files changed" totals) across my 9 merged PRs plus #29 and #53
+      // = 33,319. TODO(Zohair): once #29 and #53 merge, drop "in review".
+      stats: [
+        { value: "131", label: "commits" },
+        { value: "33.3k", label: "lines of code" },
+        { value: "11", label: "PRs merged" },
+      ],
+      statsSource: "My contributions on GitHub, Nov 2026, including PRs #29 and #53 (in review)",
+      links: { code: "https://github.com/amd-tme/AIPPT", caseStudy: "amd-aippt-ai-agents" },
+    },
+    {
+      name: "Inbox agent",
+      headline: "An agent that sorts a shared inbox and drafts the replies",
+      source: "zo2450/inbox-agent",
+      kind: "github",
+      summary:
+        "Built on the Claude API. It checks the FAQ, sorts each email into Urgent, Answered or For a person, and drafts replies a person approves.",
+      role: "Solo project, based on the agent I helped build in IBM's pro bono program.",
+      tags: ["TypeScript", "Next.js", "Claude API"],
+      links: { code: "https://github.com/zo2450/inbox-agent", caseStudy: "ibm-pro-bono-ai-agent" },
+    },
+    {
+      name: "Pocket island",
+      headline: "My story as a tiny 3D island you can spin",
+      source: "zo2450/threejs-projects",
+      kind: "github",
+      summary:
+        "Toronto, Laurier, GameCraft Camp, work and games on a low-poly island. Tap a place to learn more; the lighting follows the time in Toronto.",
+      role: "Solo project, the first in my Three.js experiments.",
+      tags: ["Three.js", "TypeScript", "Vite"],
+      links: { code: "https://github.com/zo2450/threejs-projects/tree/main/pocket-island" },
+    },
+    {
+      name: "This portfolio",
+      headline: "The site you're on, mini game included",
+      source: "zo2450/zohair-portfolio",
+      kind: "github",
+      summary: "Case studies, two embedded mini projects, and an arcade game hidden behind a cheat code.",
+      role: "Designed and built it.",
+      tags: ["Next.js", "TypeScript", "Once UI"],
+      links: {
+        code: "https://github.com/zo2450/zohair-portfolio",
+        live: "https://zohair-portfolio-eta.vercel.app",
+      },
+    },
+    {
+      name: "Matchmaking web app",
+      headline: "Designed the whole interface for a Muslim matchmaking web app",
+      source: "Figma",
+      kind: "figma",
+      summary:
+        "The front end and user interface for a matchmaking web app, designed to be modern and responsive, then built with Razor Pages and Bootstrap on Azure.",
+      role: "Led the design as a Software Engineering Intern at United Community Services of Peel, 2024.",
+      tags: ["Figma", "UX/UI", "Responsive design"],
+      links: { figma: "https://www.figma.com/design/doJ6EnXVNnWpFB1oIWpogL/USCB?node-id=2-300" },
+    },
+  ],
 };
 
 const gallery: Gallery = {
@@ -534,7 +603,7 @@ const gallery: Gallery = {
 
 // About page extras. Every fact here comes from the resume, old site or certificates.
 const aboutExtras: AboutExtras = {
-  now: "Building AI agents and AIPPT at AMD",
+  now: "Building agentic products at AMD",
   stats: [
     { label: "Based in", value: "Toronto, ON" },
     { label: "Studying", value: "Computer Science, Wilfrid Laurier '27" },
@@ -544,23 +613,31 @@ const aboutExtras: AboutExtras = {
   principles: [
     {
       title: "Start with the people using it",
+      highlight: "people",
+      caseStudy: { slug: "ibm-pro-bono-ai-agent", label: "IBM pro bono case study" },
       description:
         "Before building the IBM inbox agent, I ran usability tests with the charity's staff to see how they actually worked.",
     },
     {
       title: "Automate the boring parts",
+      highlight: "boring",
+      caseStudy: { slug: "microsoft-prospecting-agent", label: "Microsoft case study" },
       description:
         "If a workflow eats days, it should be an agent. At Microsoft that turned 15 days of seller prep into 2.",
     },
     {
       title: "Ship, then measure",
+      highlight: "measure",
+      caseStudy: { slug: "amd-aippt-ai-agents", label: "AMD case study" },
       description:
         "AIPPT's AI features went to early users fast. The hour-plus saved per deck is how I know they worked.",
     },
     {
       title: "Teach it back",
+      highlight: "Teach",
+      caseStudy: { slug: "gamecraft-camp", label: "GameCraft Camp case study" },
       description:
-        "Running GameCraft Camp taught me to explain complex ideas simply, one 8-year-old at a time.",
+        "Running GameCraft Camp taught me to explain complex ideas simply, one 12-year-old at a time.",
     },
   ],
   otherTools: ["Java", "SQL", "JavaScript", "Figma"],
